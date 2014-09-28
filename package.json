@@ -2,7 +2,7 @@
   "name": "aping",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/aping.js",
   "scripts": {
     "test": "grunt test"
   },
@@ -28,6 +28,7 @@
     "q": "~1.0.1",
     "oauth": "~0.9.12",
     "lodash-node": "~2.4.1",
-    "debug": "~2.0.0"
+    "debug": "~2.0.0",
+    "require-lazy-loader": "0.0.2"
   }
 }

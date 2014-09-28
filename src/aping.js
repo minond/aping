@@ -1,12 +1,13 @@
 'use strict';
 
 var Q = require('q'),
+    EventEmitter = require('events').EventEmitter,
     inherits = require('util').inherits,
-    debug = require('debug');
+    lazy = require('require-lazy-loader'),
+    debug = lazy('debug');
 
-var defaults = require('lodash-node/modern/objects/defaults'),
-    every = require('lodash-node/modern/collections/every'),
-    template = require('lodash-node/modern/utilities/template');
+var defaults = lazy('lodash-node/modern/objects/defaults'),
+    template = lazy('lodash-node/modern/utilities/template');
 
 /**
  * returns a function that joins a list of buffers, json decodes that, then
@@ -74,7 +75,7 @@ function params (arglist, args) {
 /**
  * uses a refresh token to get a new access token
  * @function request_new_access_token
- * @param {ApingClient} me an instance of an ApingClient object
+ * @param {Aping} me an instance of an Aping object
  * @param {Function} callback ran after setting access token and expiration
  */
 function request_new_access_token (me, callback) {
@@ -107,7 +108,7 @@ function request_new_access_token (me, callback) {
 
 /**
  * checks if a new access token is in need
- * @param {ApingClient} me an instance of an ApingClient object
+ * @param {Aping} me an instance of an Aping object
  * @return {boolean}
  */
 function needs_new_access_token (me) {
@@ -210,19 +211,22 @@ function oauth2_request (method, url, arglist) {
             });
 
             return deferred.promise;
-        } else {
-            return request.apply(this, arguments);
         }
+
+        return request.apply(this, arguments);
     };
 }
 
 /**
  * @constructor
- * @class ApingClient
+ * @class Aping
+ * @extends EventEmitter
  * @param {Object} [fields]
  * @param {String} [request_base]
  */
-function ApingClient (fields, request_base) {
+function Aping (fields, request_base) {
+    EventEmitter.call(this);
+
     /**
      * available in every string template
      * @property $oauth
@@ -246,28 +250,7 @@ function ApingClient (fields, request_base) {
     this.$log = debug(request_base);
 }
 
-/**
- * @constructor
- * @class ApingTokenClient
- * @extends ApingTokenClient
- * @param {Object} fields
- *   - {String} key api token/key string
- *   - {String} [identifier] some sort of unique identifier. passed as the
- *              User-Agent header if provided
- * @param {String} [request_base]
- */
-function ApingTokenClient (fields, request_base) {
-    ApingClient.call(this, fields, request_base);
-
-    /**
-     * the api key/token
-     * @property $token
-     * @type {String}
-     */
-    this.$token = fields.token;
-}
-
-inherits(ApingTokenClient, ApingClient);
+inherits(Aping, EventEmitter);
 
 /**
  * generates a request options object for a refresh token request
@@ -275,23 +258,8 @@ inherits(ApingTokenClient, ApingClient);
  * @method $refresh
  * @return {Object}
  */
-ApingClient.prototype.$refresh = function () {
+Aping.prototype.$refresh = function () {
     throw new Error('Method not implemented');
-};
-
-/**
- * test request test
- * @method $qtest
- * @param {String} method
- * @param {Array} [args]
- */
-ApingClient.prototype.$qtest = function (method, args) {
-    this[ method ].apply(this, args).then(function (res) {
-        this.$log('done');
-        this.$log('res: %s ...', JSON.stringify(res).substr(0, 100));
-    }.bind(this), function () {
-        this.$log('error');
-    }.bind(this));
 };
 
 /**
@@ -302,7 +270,7 @@ ApingClient.prototype.$qtest = function (method, args) {
  * @param {Object} [fields]
  * @return {Object}
  */
-ApingClient.prototype.$options = function (path, fields) {
+Aping.prototype.$options = function (path, fields) {
     fields = defaults(fields || {}, {
         fields: this.$fields,
     });
@@ -315,23 +283,21 @@ ApingClient.prototype.$options = function (path, fields) {
 };
 
 /**
- * adds an `auth`` property with the token and sets the User-Agent header to
- * the user identifier, if available
+ * if set, Aping will use these objects instead of what it would normally use.
+ * should have same interface as objects normally used:
+ * http: http://nodejs.org/api/http.html
+ * https: http://nodejs.org/api/https.html
+ * oauth: https://www.npmjs.org/package/oauth
+ * oauth2: TBD
  *
- * @method $options
- * @param {string} path url path. can be a lodash template string
- * @param {Object} [fields]
- * @return {Object}
+ * @property proxies
+ * @type {Object}
  */
-ApingTokenClient.prototype.$options = function (path, fields) {
-    var req = ApingClient.prototype.$options.call(this, path, fields);
-
-    return defaults({
-        auth: this.$token + ':x-oauth-basic',
-        headers: defaults({
-            'User-Agent': this.$fields.identifier || 'Aping'
-        }, req.headers)
-    }, req);
+Aping.proxies = {
+    http: null,
+    https: null,
+    oauth: null,
+    oauth2: null
 };
 
 /**
@@ -339,7 +305,7 @@ ApingTokenClient.prototype.$options = function (path, fields) {
  * @property request
  * @type {Object}
  */
-ApingClient.request = {
+Aping.request = {
     http: {},
     https: {},
     oauth: {},
@@ -355,7 +321,7 @@ ApingClient.request = {
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-ApingClient.request.http.get = function (url, arglist) {
+Aping.request.http.get = function (url, arglist) {
     return http_request('get', url, arglist, require('http'));
 };
 
@@ -368,7 +334,7 @@ ApingClient.request.http.get = function (url, arglist) {
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-ApingClient.request.https.get = function (url, arglist) {
+Aping.request.https.get = function (url, arglist) {
     return http_request('get', url, arglist, require('https'));
 };
 
@@ -380,7 +346,7 @@ ApingClient.request.https.get = function (url, arglist) {
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-ApingClient.request.oauth.get = function (url, arglist) {
+Aping.request.oauth.get = function (url, arglist) {
     return oauth_request('get', url, arglist);
 };
 
@@ -392,24 +358,10 @@ ApingClient.request.oauth.get = function (url, arglist) {
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-ApingClient.request.oauth2.get = function (url, arglist) {
+Aping.request.oauth2.get = function (url, arglist) {
     return oauth2_request('get', url, arglist);
 };
 
-/**
- * @method extend
- * @param {Object} from parent class
- * @param {String} request_base
- * @return {Object} child class
- */
-ApingClient.extend = function (from, request_base) {
-    function ApingClientInstance (fields) {
-        from.call(this, fields, request_base);
-    }
-
-    inherits(ApingClientInstance, from);
-    return ApingClientInstance;
-};
-
-module.exports = ApingClient;
-module.exports.TokenClient = ApingTokenClient;
+module.exports = Aping;
+module.exports.inherits = inherits;
+module.exports.Token = require('./aping_token');
