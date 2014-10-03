@@ -6,7 +6,7 @@ describe('Aping', function () {
     var Aping, expect;
 
     beforeEach(function () {
-        Aping = require('../src/aping');
+        Aping = require('..');
         expect = require('expect.js');
     });
 
@@ -25,9 +25,9 @@ describe('Aping', function () {
     });
 
     describe('.request', function () {
-        generateRequestTestsFor(require('../src/aping'), require('./apis/BaseApi'), 'http');
-        generateRequestTestsFor(require('../src/aping'), require('./apis/BaseApi'), 'https');
-        generateRequestTestsFor(require('../src/aping'), require('./apis/BaseApi'), 'oauth');
-        generateRequestTestsFor(require('../src/aping'), require('./apis/BaseApi'), 'oauth2');
+        generateRequestTestsFor(require('..'), require('./apis/BaseApi'), 'http');
+        generateRequestTestsFor(require('..'), require('./apis/BaseApi'), 'https');
+        generateRequestTestsFor(require('..'), require('./apis/BaseApi'), 'oauth');
+        generateRequestTestsFor(require('..'), require('./apis/BaseApi'), 'oauth2');
     });
 });
