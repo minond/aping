@@ -78,24 +78,6 @@ Aping.prototype.$options = function (path, fields) {
 };
 
 /**
- * if set, Aping will use these objects instead of what it would normally use.
- * should have same interface as objects normally used:
- * http: http://nodejs.org/api/http.html
- * https: http://nodejs.org/api/https.html
- * oauth: https://www.npmjs.org/package/oauth
- * oauth2: TBD
- *
- * @property proxies
- * @type {Object}
- */
-Aping.proxies = {
-    http: null,
-    https: null,
-    oauth: null,
-    oauth2: null
-};
-
-/**
  * api request function generators
  * @property request
  * @type {Object}
