@@ -1,32 +1,9 @@
 'use strict';
 
 var Q = require('q'),
-    Aping = require('./aping'),
-    util = require('util'),
     lazy = require('require-lazy-loader'),
     defaults = lazy('lodash-node/modern/objects/defaults'),
     template = lazy('lodash-node/modern/utilities/template');
-
-/**
- * generates an Aping client
- * @function client
- * @param {String} request_base
- * @param {Array} [transformers]
- * @return {Function}
- */
-function client(request_base, transformers) {
-    function ApingClient(fields) {
-        Aping.call(this, fields, request_base);
-    }
-
-    ApingClient.$transformers = transformers || [];
-    ApingClient.use = function (transformer) {
-        ApingClient.$transformers.push(transformer);
-    };
-
-    util.inherits(ApingClient, Aping);
-    return ApingClient;
-}
 
 /**
  * generates a request options object
@@ -264,7 +241,6 @@ function oauth2_request(method, url, arglist) {
 }
 
 module.exports = {
-    client: client,
     http_request: http_request,
     oauth_request: oauth_request,
     oauth2_request: oauth2_request

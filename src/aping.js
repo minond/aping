@@ -3,12 +3,12 @@
 var EventEmitter = require('events').EventEmitter,
     util = require('util'),
     lazy = require('require-lazy-loader')(require),
-    debug = lazy('debug');
+    debug = lazy('debug'),
+    client = lazy('./client');
 
-var http_request = lazy('./base http_request'),
-    oauth_request = lazy('./base oauth_request'),
-    oauth2_request = lazy('./base oauth2_request'),
-    client = lazy('./base client');
+var http_request = lazy('./requests http_request'),
+    oauth_request = lazy('./requests oauth_request'),
+    oauth2_request = lazy('./requests oauth2_request');
 
 /**
  * @constructor
