@@ -1,25 +1,37 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter,
-    inherits = require('util').inherits,
+    util = require('util'),
     lazy = require('require-lazy-loader')(require),
     debug = lazy('debug');
 
-var defaults = lazy('lodash-node/modern/objects/defaults'),
-    template = lazy('lodash-node/modern/utilities/template');
-
 var http_request = lazy('./base http_request'),
     oauth_request = lazy('./base oauth_request'),
-    oauth2_request = lazy('./base oauth2_request');
+    oauth2_request = lazy('./base oauth2_request'),
+    client = lazy('./base client');
 
 /**
  * @constructor
  * @class Aping
  * @extends EventEmitter
+ *
+ * @signature `new Aping(fields, request_base)`
  * @param {Object} [fields]
  * @param {String} [request_base]
+ * @return {Aping}
+ *
+ * @function Aping
+ *
+ * @signature `aping(request_base, transformers)`
+ * @param {String} request_base
+ * @param {Array} [transformers]
+ * @return {ApingClient}
  */
-function Aping (fields, request_base) {
+var Aping = module.exports = function Aping(fields, request_base) {
+    if (!(this instanceof Aping)) {
+        return client(fields, request_base);
+    }
+
     EventEmitter.call(this);
 
     /**
@@ -31,11 +43,11 @@ function Aping (fields, request_base) {
 
     /**
      * base url of the api
-     * @property $$REQUEST_CONFIG
+     * @property $request_config
      * @type {Object}
      */
-    this.$REQUEST_CONFIG = {
-        BASE: request_base
+    this.$request_config = {
+        base: request_base
     };
 
     /**
@@ -43,39 +55,15 @@ function Aping (fields, request_base) {
      * @type {Function}
      */
     this.$log = debug(request_base);
-}
 
-inherits(Aping, EventEmitter);
-
-/**
- * generates a request options object for a refresh token request
- *
- * @method $refresh
- * @return {Object}
- */
-Aping.prototype.$refresh = function () {
-    throw new Error('Method not implemented');
+    if (this.constructor.$transformers) {
+        this.constructor.$transformers.forEach(function (transformer) {
+            transformer(this);
+        }, this);
+    }
 };
 
-/**
- * generates a request options object
- *
- * @method $options
- * @param {string} path url path. can be a lodash template string
- * @param {Object} [fields]
- * @return {Object}
- */
-Aping.prototype.$options = function (path, fields) {
-    fields = defaults(fields || {}, {
-        fields: this.$fields,
-    });
-
-    return {
-        headers: {},
-        host: this.$REQUEST_CONFIG.BASE,
-        path: template(path, fields),
-    };
-};
+util.inherits(Aping, EventEmitter);
 
 /**
  * api request function generators
@@ -138,7 +126,3 @@ Aping.request.oauth.get = function (url, arglist) {
 Aping.request.oauth2.get = function (url, arglist) {
     return oauth2_request('get', url, arglist);
 };
-
-module.exports = Aping;
-module.exports.inherits = inherits;
-module.exports.Token = require('./aping_token');

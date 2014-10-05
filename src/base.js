@@ -1,8 +1,58 @@
 'use strict';
 
 var Q = require('q'),
+    Aping = require('./aping'),
+    util = require('util'),
     lazy = require('require-lazy-loader'),
+    defaults = lazy('lodash-node/modern/objects/defaults'),
     template = lazy('lodash-node/modern/utilities/template');
+
+/**
+ * generates an Aping client
+ * @function client
+ * @param {String} request_base
+ * @param {Array} [transformers]
+ * @return {Function}
+ */
+function client(request_base, transformers) {
+    function ApingClient(fields) {
+        Aping.call(this, fields, request_base);
+    }
+
+    ApingClient.$transformers = transformers || [];
+    ApingClient.use = function (transformer) {
+        ApingClient.$transformers.push(transformer);
+    };
+
+    util.inherits(ApingClient, Aping);
+    return ApingClient;
+}
+
+/**
+ * generates a request options object
+ *
+ * @function gen_options
+ * @param {Aping} me an instance of an Aping object
+ * @param {string} path url path. can be a lodash template string
+ * @param {Object} [fields]
+ * @return {Object}
+ */
+function gen_options(me, path, fields) {
+    var req;
+
+    fields = defaults(fields || {}, {
+        fields: me.$fields,
+    });
+
+    req = {
+        headers: {},
+        host: me.$request_config.base,
+        path: template(path, fields),
+    };
+
+    me.emit('options', req);
+    return req;
+}
 
 /**
  * returns a function that joins a list of buffers, json decodes that, then
@@ -14,7 +64,7 @@ var Q = require('q'),
  * @param {Function} log
  * @return {Function}
  */
-function resolve (deferred, buffers, log) {
+function resolve(deferred, buffers, log) {
     var joined;
 
     return function () {
@@ -38,7 +88,7 @@ function resolve (deferred, buffers, log) {
  * @param {Function} log
  * @return {Function}
  */
-function complete (deferred, log) {
+function complete(deferred, log) {
     return function (err, data) {
         if (err) {
             log('reject request');
@@ -52,12 +102,12 @@ function complete (deferred, log) {
 
 /**
  * generates parameters for request functions
- * @function params
+ * @function gen_params
  * @param {Array} arglist expected arguments (ie. date, page, username, etc.)
  * @param {Array} args parameters passed to function
  * @return {Object}
  */
-function params (arglist, args) {
+function gen_params(arglist, args) {
     var data = {};
 
     (arglist || []).forEach(function (val, index) {
@@ -73,7 +123,7 @@ function params (arglist, args) {
  * @param {Aping} me an instance of an Aping object
  * @param {Function} callback ran after setting access token and expiration
  */
-function request_new_access_token (me, callback) {
+function request_new_access_token(me, callback) {
     var querystring = require('querystring'),
         https = require('https');
 
@@ -106,7 +156,7 @@ function request_new_access_token (me, callback) {
  * @param {Aping} me an instance of an Aping object
  * @return {boolean}
  */
-function needs_new_access_token (me) {
+function needs_new_access_token(me) {
     return !me.$auth.access_token || me.$auth.expires_in <= Date.now();
 }
 
@@ -120,10 +170,11 @@ function needs_new_access_token (me) {
  * @param {Object} proxy client used to make request
  * @return {Function}
  */
-function http_request (method, url, arglist, proxy) {
+function http_request(method, url, arglist, proxy) {
     return function () {
         var deferred = Q.defer(),
-            options = this.$options(url, params(arglist, arguments)),
+            params = gen_params(arglist, arguments),
+            options = gen_options(this, url, params),
             log = this.$log;
 
         log('requesting %s', options.path);
@@ -151,7 +202,7 @@ function http_request (method, url, arglist, proxy) {
  * @param {Array} arglist arguments passed into the method and req
  * @return {Function}
  */
-function oauth_request (method, url, arglist) {
+function oauth_request(method, url, arglist) {
     var OAuth = require('oauth').OAuth;
 
     return function () {
@@ -169,9 +220,9 @@ function oauth_request (method, url, arglist) {
             );
         }
 
-        this.$log('requesting %s', template(url, params(arglist, arguments)));
+        this.$log('requesting %s', template(url, gen_params(arglist, arguments)));
         this.$oauth.get(
-            template(url, params(arglist, arguments)),
+            template(url, gen_params(arglist, arguments)),
             this.$auth.user_token,
             this.$auth.user_secret,
             complete(deferred, this.$log)
@@ -190,7 +241,7 @@ function oauth_request (method, url, arglist) {
  * @param {Array} arglist arguments passed into the method and req
  * @return {Function}
  */
-function oauth2_request (method, url, arglist) {
+function oauth2_request(method, url, arglist) {
     var request = http_request(method, url, arglist, require('https'));
 
     return function () {
@@ -213,6 +264,7 @@ function oauth2_request (method, url, arglist) {
 }
 
 module.exports = {
+    client: client,
     http_request: http_request,
     oauth_request: oauth_request,
     oauth2_request: oauth2_request
