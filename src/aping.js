@@ -66,63 +66,63 @@ var Aping = module.exports = function Aping(fields, request_base) {
 util.inherits(Aping, EventEmitter);
 
 /**
- * api request function generators
- * @property request
- * @type {Object}
- */
-Aping.request = {
-    http: {},
-    https: {},
-    oauth: {},
-    oauth2: {}
-};
-
-/**
  * generates an api call method using http
  *
- * @method request.http.get
+ * @method http
+ * @alias http.get
  * @static
  * @param {string} url the end point (not including the base)
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-Aping.request.http.get = function (url, arglist) {
+Aping.http = function (url, arglist) {
     return http_request('get', url, arglist, require('http'));
 };
+
+Aping.http.get = Aping.http;
 
 /**
  * generates an api call method using https
  *
- * @method request.https.get
+ * @method https
+ * @alias https.get
  * @static
  * @param {string} url the end point (not including the base)
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-Aping.request.https.get = function (url, arglist) {
+Aping.https = function (url, arglist) {
     return http_request('get', url, arglist, require('https'));
 };
+
+Aping.https.get = Aping.https;
 
 /**
  * generates an api call method using oauth
  *
- * @method request.oauth.get
+ * @method oauth
+ * @alias oauth.get
  * @parma {string} url the end point (not including the base)
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-Aping.request.oauth.get = function (url, arglist) {
+Aping.oauth = function (url, arglist) {
     return oauth_request('get', url, arglist);
 };
+
+Aping.oauth.get = Aping.oauth;
 
 /**
  * generates an api call method using oauth2
  *
- * @method request.oauth2.get
+ * @method oauth2
+ * @alias oauth2.get
  * @parma {string} url the end point (not including the base)
  * @param {Array} [arglist] optional arguments passed into the method and req
  * @return {Function}
  */
-Aping.request.oauth2.get = function (url, arglist) {
+Aping.oauth2 = function (url, arglist) {
     return oauth2_request('get', url, arglist);
 };
+
+Aping.oauth2.get = Aping.oauth2;
