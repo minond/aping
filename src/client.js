@@ -21,5 +21,7 @@ module.exports = function client(request_base, transformers) {
     };
 
     util.inherits(ApingClient, Aping);
+    ApingClient.endpoint = ApingClient.prototype;
+
     return ApingClient;
 };
