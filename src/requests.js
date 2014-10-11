@@ -151,20 +151,24 @@ function http_request(method, url, arglist, proxy) {
     return function () {
         var deferred = Q.defer(),
             params = gen_params(arglist, arguments),
-            options = gen_options(this, url, params),
-            log = this.$log;
+            options = gen_options(this, url, params);
 
-        log('requesting %s', options.path);
+        this.$log('requesting %s', options.path);
         proxy[ method ](options, function (res) {
             var buffers = [];
 
-            log('downloading %s', options.path);
+            this.$log('downloading %s', options.path);
             res.on('data', buffers.push.bind(buffers));
-            res.on('end', resolve(deferred, buffers, log));
-        }).on('error', function (err) {
-            log('error getting %s', options.path);
+            res.on('end', resolve(deferred, buffers, this.$log));
+        }.bind(this)).on('error', function (err) {
+            this.$log('error getting %s', options.path);
             deferred.reject(err);
-        });
+
+            // triggering an error event without listeners kills the process
+            if (this.listeners('error').length) {
+                this.emit('error', err, method, url, params);
+            }
+        }.bind(this));
 
         return deferred.promise;
     };
