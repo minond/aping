@@ -22,14 +22,15 @@ var http_request = lazy('./requests http_request'),
  *
  * @function Aping
  *
- * @signature `aping(request_base, transformers)`
+ * @signature `aping(request_base, transformers, endpoints)`
  * @param {String} request_base
  * @param {Array} [transformers]
+ * @param {Object} [endpoints]
  * @return {ApingClient}
  */
-var Aping = module.exports = function Aping(fields, request_base) {
+var Aping = module.exports = function Aping(fields, request_base, endpoints) {
     if (!(this instanceof Aping)) {
-        return client(fields, request_base);
+        return client(fields, request_base, endpoints);
     }
 
     EventEmitter.call(this);
