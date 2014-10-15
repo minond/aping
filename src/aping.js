@@ -80,6 +80,16 @@ Aping.http = function (url, arglist) {
     return http_request('get', url, arglist, require('http'));
 };
 
+/**
+ * generates an api call method using http
+ *
+ * @method http.get
+ * @alias http
+ * @static
+ * @param {string} url the end point (not including the base)
+ * @param {Array} [arglist] optional arguments passed into the method and req
+ * @return {Function}
+ */
 Aping.http.get = Aping.http;
 
 /**
@@ -96,6 +106,16 @@ Aping.https = function (url, arglist) {
     return http_request('get', url, arglist, require('https'));
 };
 
+/**
+ * generates an api call method using https
+ *
+ * @method https.get
+ * @alias https
+ * @static
+ * @param {string} url the end point (not including the base)
+ * @param {Array} [arglist] optional arguments passed into the method and req
+ * @return {Function}
+ */
 Aping.https.get = Aping.https;
 
 /**
@@ -111,6 +131,15 @@ Aping.oauth = function (url, arglist) {
     return oauth_request('get', url, arglist);
 };
 
+/**
+ * generates an api call method using oauth
+ *
+ * @method oauth.get
+ * @alias oauth
+ * @parma {string} url the end point (not including the base)
+ * @param {Array} [arglist] optional arguments passed into the method and req
+ * @return {Function}
+ */
 Aping.oauth.get = Aping.oauth;
 
 /**
@@ -126,4 +155,13 @@ Aping.oauth2 = function (url, arglist) {
     return oauth2_request('get', url, arglist);
 };
 
+/**
+ * generates an api call method using oauth2
+ *
+ * @method oauth2.get
+ * @alias oauth2
+ * @parma {string} url the end point (not including the base)
+ * @param {Array} [arglist] optional arguments passed into the method and req
+ * @return {Function}
+ */
 Aping.oauth2.get = Aping.oauth2;
