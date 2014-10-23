@@ -11,7 +11,7 @@ var aping = require('aping'),
     signature = require('aping/src/signature');
 
 var Github = aping('api.github.com', [signature, token], {
-    repos: aping.https(URL_USERS, ['user'])
+    repos: aping.https('/users/${ user || fields.identifier }/repos', ['user'])
 });
 ```
 
