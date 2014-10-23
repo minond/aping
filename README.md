@@ -23,7 +23,13 @@ var github = new Github({
     identifier: process.env.GITHUB_USER // or however you store this
 });
 
+// gets repos for the logged in user (identifier)
 github.repos().then(function (repos) {
+    console.log(repos);
+});
+
+// gets repos for the user a specific user
+github.repos('minond').then(function (repos) {
     console.log(repos);
 });
 ```
