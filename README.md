@@ -6,9 +6,9 @@ here's an example of a client for the Github api that lets you download repo
 information for any user:
 
 ```js
-var aping = require('../src/aping'),
-    token = require('../src/token'),
-    signature = require('../src/signature');
+var aping = require('aping'),
+    token = require('aping/src/token'),
+    signature = require('aping/src/signature');
 
 var Github = aping('api.github.com', [signature, token], {
     repos: aping.https(URL_USERS, ['user'])
