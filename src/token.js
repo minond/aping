@@ -2,7 +2,7 @@
 
 /**
  * adds a token string to the request
- * @function signature
+ * @function token
  * @param {Aping} client
  */
 module.exports = function token(client) {
