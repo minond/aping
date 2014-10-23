@@ -5,9 +5,10 @@
 
 var TEMPLATE = '### [<%= base.name %>](<%= base.link %>)\n' +
     '<% endpoints.forEach(function(endpoint) { %>\n' +
-    '#### [<%= endpoint.name %>](<%= endpoint.link %>)\n' +
-    '<% endpoint.params.forEach(function(param) { %>\n' +
-    '* <%= param.name %><% }); %>\n<% }); %>';
+    '* [<%= endpoint.name %>](<%= endpoint.link %>)(' +
+    '<% endpoint.params.forEach(function(param, i) { %>' +
+    '<% if (i) { %>, <% } %>' +
+    '<%= param.name %><% }); %>)<% }); %>\n';
 
 var fs = require('fs'),
     dox = require('dox');

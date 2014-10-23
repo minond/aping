@@ -38,27 +38,11 @@ github.repos('minond').then(function (repos) {
 
 ### [Github](https://developer.github.com/v3/)
 
-#### [repos](https://developer.github.com/v3/repos/)
-
-* [user]
-
-#### [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)
-
-* repo
-* sha
-* [user]
-
-#### [commits](https://developer.github.com/v3/repos/commits/)
-
-* repo
-* [since]
-* [until]
-* [page]
-* [user]
+* [repos](https://developer.github.com/v3/repos/)([user])
+* [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [user])
+* [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [user])
 
 ### [Meetup](http://www.meetup.com/meetup_api/)
 
-#### [events](http://www.meetup.com/meetup_api/docs/2/events/)
+* [events](http://www.meetup.com/meetup_api/docs/2/events/)([group_urlname], [status])
 
-* [group_urlname]
-* [status]
