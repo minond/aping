@@ -1,10 +1,19 @@
 {
   "name": "aping",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/aping.js",
   "scripts": {
     "test": "grunt test"
+  },
+  "keywords": [
+    "api",
+    "github",
+    "meetup"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/minond/aping"
   },
   "devDependencies": {
     "grunt-mkdir": "~0.1.2",
