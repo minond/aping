@@ -2,6 +2,7 @@
 
 var Aping = require('./aping'),
     util = require('util'),
+    isPlainObject = require('lodash-node/modern/objects/isPlainObject'),
     forOwn = require('lodash-node/modern/objects/forOwn');
 
 /**
@@ -17,7 +18,10 @@ module.exports = function client(request_base, transformers, endpoints) {
         Aping.call(this, fields, request_base);
     }
 
-    // XXX options endpoints = transformers if isPlainObject(transformers) && !endpoints
+    if (!endpoints && isPlainObject(transformers)) {
+        endpoints = transformers;
+        transformers = [];
+    }
 
     ApingClient.$transformers = transformers || [];
     ApingClient.use = function (transformer) {
