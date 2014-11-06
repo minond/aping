@@ -6,6 +6,7 @@ var URL_FORECAST = '/forecast/${ fields.token }/${ latitude },${ longitude }' +
 var aping = require('../src/aping');
 
 /**
+ * @link https://developer.forecast.io/docs/v2
  * @class ForecaseIo
  * @extends ApingClient
  * @constructor

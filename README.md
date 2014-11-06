@@ -36,13 +36,20 @@ github.repos('minond').then(function (repos) {
 
 ## support
 
+### [ForecaseIo](https://developer.forecast.io/docs/v2)
+
+* [forecast](https://developer.forecast.io/docs/v2)(latitude, longitude)
+
 ### [Github](https://developer.github.com/v3/)
 
 * [repos](https://developer.github.com/v3/repos/)([user])
 * [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [user])
 * [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [user])
 
+### [Lastfm](http://www.last.fm/api)
+
+* [getRecentTracks](http://www.last.fm/api/show/user.getRecentTracks)([since], [until], [page])
+
 ### [Meetup](http://www.meetup.com/meetup_api/)
 
 * [events](http://www.meetup.com/meetup_api/docs/2/events/)([group_urlname], [status])
-
