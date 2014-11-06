@@ -36,7 +36,7 @@ github.repos('minond').then(function (repos) {
 
 ## support
 
-#### [ForecaseIo](https://developer.forecast.io/docs/v2)
+#### [ForecastIo](https://developer.forecast.io/docs/v2)
 
 * [forecast](https://developer.forecast.io/docs/v2)(latitude, longitude)
 

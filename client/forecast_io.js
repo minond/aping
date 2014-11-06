@@ -7,7 +7,7 @@ var aping = require('../src/aping');
 
 /**
  * @link https://developer.forecast.io/docs/v2
- * @class ForecaseIo
+ * @class ForecastIo
  * @extends ApingClient
  * @constructor
  * @param {Object} config
