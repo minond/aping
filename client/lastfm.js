@@ -11,8 +11,7 @@ var URL_RECENT_TRACKS = '/2.0/?format=json&limit=200&' +
 var aping = require('../src/aping');
 
 /**
- * @link https://developer.github.com/v3/
- * @class Github
+ * @class Lastfm
  * @extends ApingClient
  * @constructor
  * @param {Object} config
