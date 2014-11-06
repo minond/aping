@@ -1,7 +1,7 @@
 'use strict';
 
 var URL_FORECAST = '/forecast/${ fields.token }/${ latitude },${ longitude }' +
-        '<% if (time) { %>,${ time }<% } %>';
+    '<% if (time) { %>,${ time }<% } %>';
 
 var aping = require('../src/aping');
 

@@ -1,12 +1,12 @@
 'use strict';
 
 var URL_RECENT_TRACKS = '/2.0/?format=json&limit=200&' +
-        'api_key=${ fields.token }&' +
-        'user=${ fields.identifier }&' +
-        'page=${ page }&' +
-        'from=${ since.getTime() }&' +
-        'to=${ until.getTime() }&' +
-        'method=user.getrecenttracks';
+    'api_key=${ fields.token }&' +
+    'user=${ fields.identifier }&' +
+    'page=${ page }&' +
+    'from=${ since.getTime() }&' +
+    'to=${ until.getTime() }&' +
+    'method=user.getrecenttracks';
 
 var aping = require('../src/aping');
 
