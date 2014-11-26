@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/minond/aping.svg)](https://travis-ci.org/minond/aping)
+[![Coverage Status](https://coveralls.io/repos/minond/aping/badge.png?branch=master)](https://coveralls.io/r/minond/aping?branch=master)
 
 `aping` - lets you easily create api clients.
 
