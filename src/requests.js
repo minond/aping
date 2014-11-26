@@ -18,13 +18,13 @@ function gen_options(me, path, fields) {
     var req;
 
     fields = defaults(fields || {}, {
-        fields: me.$fields,
+        fields: me.$fields
     });
 
     req = {
         headers: {},
         host: me.$request_config.base,
-        path: template(path, fields),
+        path: template(path, fields)
     };
 
     me.emit('options', req);
