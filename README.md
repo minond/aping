@@ -1,6 +1,8 @@
 `apings` lets you easily create api clients.
 
-## example
+`aping` - lets you easily create api clients.
+
+#### example
 
 here's an example of a client for the Github api that lets you download repo
 information for any user:
@@ -34,22 +36,26 @@ github.repos('minond').then(function (repos) {
 });
 ```
 
-## support
+#### support
 
-#### [ForecastIo](https://developer.forecast.io/docs/v2)
+I'm also working on adding a few client's and end-points I use and need from
+time to time. these are stored in the `client` directory. this is what's
+currently available:
+
+##### [ForecastIo](https://developer.forecast.io/docs/v2)
 
 * [forecast](https://developer.forecast.io/docs/v2)(latitude, longitude)
 
-#### [Github](https://developer.github.com/v3/)
+##### [Github](https://developer.github.com/v3/)
 
 * [repos](https://developer.github.com/v3/repos/)([user])
 * [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [user])
 * [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [user])
 
-#### [Lastfm](http://www.last.fm/api)
+##### [Lastfm](http://www.last.fm/api)
 
 * [getRecentTracks](http://www.last.fm/api/show/user.getRecentTracks)([since], [until], [page])
 
-#### [Meetup](http://www.meetup.com/meetup_api/)
+##### [Meetup](http://www.meetup.com/meetup_api/)
 
 * [events](http://www.meetup.com/meetup_api/docs/2/events/)([group_urlname], [status])

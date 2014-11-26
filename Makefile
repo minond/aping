@@ -7,7 +7,7 @@ install: dependencies
 	npm install
 
 documentation:
-	./scripts/client-documentation client
+	@./scripts/client-documentation client
 
 test: js-mocha
 lint: js-lint

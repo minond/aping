@@ -3,7 +3,7 @@
 
 'use strict';
 
-var TEMPLATE = '#### [<%= base.name %>](<%= base.link %>)\n' +
+var TEMPLATE = '##### [<%= base.name %>](<%= base.link %>)\n' +
     '<% endpoints.forEach(function(endpoint) { %>\n' +
     '* [<%= endpoint.name %>](<%= endpoint.link %>)(' +
     '<% endpoint.params.forEach(function(param, i) { %>' +
