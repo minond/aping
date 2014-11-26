@@ -1,4 +1,4 @@
-`apings` lets you easily create api clients.
+[![Build Status](https://travis-ci.org/minond/aping.svg)](https://travis-ci.org/minond/aping)
 
 `aping` - lets you easily create api clients.
 
