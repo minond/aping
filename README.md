@@ -3,6 +3,16 @@
 
 `aping` - lets you easily create api clients.
 
+#### installing
+
+haven't published this to npm yet, will do so after I get more tests and the
+api is finalized. if you do want to install it, however, you can do so using
+the github repo: `npm install minond/aping`
+
+#### tests
+
+clone the repo and run `make test`
+
 #### example
 
 here's an example of a client for the Github api that lets you download repo

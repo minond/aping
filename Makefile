@@ -1,13 +1,13 @@
 -include vendor/minond/scaffold/plugins/js.mk
 
 dependencies:
-	git submodule update --init
+	@git submodule update --init
 
 install: dependencies
 	npm install
 
-documentation:
+documentation: install
 	@./scripts/client-documentation client
 
-test: js-mocha
-lint: js-lint
+test: install js-mocha
+lint: install js-lint
