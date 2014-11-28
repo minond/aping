@@ -1,10 +1,10 @@
 -include vendor/minond/scaffold/plugins/js.mk
 
-dependencies:
-	@git submodule update --init
-
 install: dependencies
 	npm install
+
+dependencies:
+	@git submodule update --init
 
 documentation: install
 	@./scripts/client-documentation client

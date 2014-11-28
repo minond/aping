@@ -24,7 +24,11 @@ function gen_options(me, path, fields) {
     req = {
         headers: {},
         host: me.$request_config.base,
-        path: template(path, fields)
+        path: template(path, fields, {
+            imports: {
+                format: require('./formatters')
+            }
+        })
     };
 
     me.emit('options', req);
