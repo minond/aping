@@ -51,5 +51,5 @@ module.exports = aping('api.github.com', [signature, token], {
      * @param {String} [user] (default: config.identifier)
      * @return {Q.Promise}
      */
-    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'user']),
+    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'user'])
 });

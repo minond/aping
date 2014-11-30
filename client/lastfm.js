@@ -28,5 +28,5 @@ module.exports = aping('ws.audioscrobbler.com', {
      * @param {int} [page]
      * @return {Q.Promise}
      */
-    recent_tracks: aping.https(URL_RECENT_TRACKS, ['since', 'until', 'page']),
+    recent_tracks: aping.https(URL_RECENT_TRACKS, ['since', 'until', 'page'])
 });

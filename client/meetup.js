@@ -23,5 +23,5 @@ module.exports = aping('api.meetup.com', [], {
      * @param {String} [status] (default: all statuses comma separated)
      * @return {Q.Promise}
      */
-    events: aping.https(URL_EVENTS, ['group_urlname', 'status']),
+    events: aping.https(URL_EVENTS, ['group_urlname', 'status'])
 });
