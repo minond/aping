@@ -26,6 +26,22 @@ var auth = {
  */
 module.exports = aping('api.moves-app.com', [config('auth', auth)], {
     /**
+     * used to generate a request for a refresh token
+     * @private
+     * @method $refresh
+     * @return {Object}
+     */
+    $refresh: function () {
+        return {
+            grant_type: 'refresh_token',
+            client_id: this.$fields.consumer_key,
+            refresh_token: this.$fields.refresh_token,
+            code: this.$fields.refresh_token,
+            client_secret: this.$fields.application_secret
+        };
+    },
+
+    /**
      * @link https://dev.moves-app.com/docs/api_places
      * @method places
      * @param {Date} from
@@ -34,13 +50,3 @@ module.exports = aping('api.moves-app.com', [config('auth', auth)], {
      */
     places: aping.oauth2(URL_PLACES, ['from', 'to'])
 });
-
-module.exports.prototype.$refresh = function () {
-    return {
-        grant_type: 'refresh_token',
-        client_id: this.$fields.consumer_key,
-        refresh_token: this.$fields.refresh_token,
-        code: this.$fields.refresh_token,
-        client_secret: this.$fields.application_secret
-    };
-};
