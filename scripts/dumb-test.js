@@ -2,31 +2,45 @@
 
 var Github = require('../client/github'),
     Lastfm = require('../client/lastfm'),
+    MovesApp = require('../client/moves_app'),
     ForecaseIo = require('../client/forecast_io'),
     Meetup = require('../client/meetup');
 
-var github = new Github({
-    token: process.env.GITHUB_TOKEN,
-    identifier: process.env.GITHUB_USER
+var moves = new MovesApp({
+    consumer_key: process.env.MOVES_APP_CLIENT_ID,
+    application_secret: process.env.MOVES_APP_SECRET,
+    access_token: process.env.MOVES_APP_ACCESS_TOKEN,
+    refresh_token: process.env.MOVES_APP_REFRESH_TOKEN
 });
 
-var meetup = new Meetup({
-    token: process.env.MEETUP_API_KEY,
-    identifier: process.env.MEETUP_USER_ID
+moves.places(new Date('2014-11-15'), new Date('2014-11-17')).then(function () {
+    console.log(arguments);
 });
 
-var lastfm = new Lastfm({
-    token: process.env.LASTFM_API_KEY,
-    identifier: process.env.LASTFM_USER
-});
+// console.log(moves);
 
-var forecast_io = new ForecaseIo({
-    token: process.env.FORECASTIO_API_KEY
-});
+// var github = new Github({
+//     token: process.env.GITHUB_TOKEN,
+//     identifier: process.env.GITHUB_USER
+// });
 
-forecast_io.forecast(process.env.MY_LATITUDE, process.env.MY_LONGITUDE).then(function (res) {
-    console.log(res);
-});
+// var meetup = new Meetup({
+//     token: process.env.MEETUP_API_KEY,
+//     identifier: process.env.MEETUP_USER_ID
+// });
+
+// var lastfm = new Lastfm({
+//     token: process.env.LASTFM_API_KEY,
+//     identifier: process.env.LASTFM_USER
+// });
+
+// var forecast_io = new ForecaseIo({
+//     token: process.env.FORECASTIO_API_KEY
+// });
+
+// forecast_io.forecast(process.env.MY_LATITUDE, process.env.MY_LONGITUDE).then(function (res) {
+//     console.log(res);
+// });
 
 // lastfm.recent_tracks(new Date('2014-11-03'), new Date('2014-11-04')).then(function (res) {
 //     console.log(res);
