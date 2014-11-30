@@ -120,9 +120,15 @@ function request_new_access_token(me, callback) {
         res.on('data', buffers.push.bind(buffers));
         res.on('end', function () {
             var auth = JSON.parse(buffers.join(''));
-            me.$auth.access_token = auth.access_token;
+            me.$fields.access_token = auth.access_token;
             me.$auth.expires_in = Date.now() + auth.expires_in * 1000;
-            me.$log('new access token expires on %s', new Date(me.$auth.expires_in));
+
+            if (auth.error) {
+                me.$log('error requesting token %o', auth);
+            } else {
+                me.$log('new access token expires on %s', new Date(me.$auth.expires_in));
+            }
+
             callback();
         });
     });
@@ -138,7 +144,7 @@ function request_new_access_token(me, callback) {
  * @return {boolean}
  */
 function needs_new_access_token(me) {
-    return !me.$auth.access_token || me.$auth.expires_in <= Date.now();
+    return !me.$fields.access_token || me.$auth.expires_in <= Date.now();
 }
 
 /**
@@ -197,8 +203,8 @@ function oauth_request(method, url, arglist) {
             this.$oauth = new OAuth(
                 this.$auth.request_token_url,
                 this.$auth.request_access_url,
-                this.$auth.consumer_key,
-                this.$auth.application_secret,
+                this.$fields.consumer_key,
+                this.$fields.application_secret,
                 this.$auth.api_version,
                 null,
                 this.$auth.signature_method
