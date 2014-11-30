@@ -14,9 +14,23 @@ var auth = {
 };
 
 /**
+ * @link https://dev.moves-app.com/
+ * @class MovesApp
+ * @extends ApingClient
+ * @constructor
+ * @param {Object} config
+ * @param {String} config.consumer_key
+ * @param {String} config.application_secret
+ * @param {String} config.access_token
+ * @param {String} config.refresh_token
  */
 module.exports = aping('api.moves-app.com', [config('auth', auth)], {
     /**
+     * @link https://dev.moves-app.com/docs/api_places
+     * @method places
+     * @param {Date} from
+     * @param {Date} to
+     * @return {Q.Promise}
      */
     places: aping.oauth2(URL_PLACES, ['from', 'to'])
 });
