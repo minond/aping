@@ -5,6 +5,28 @@ var Q = require('q'),
     defaults = lazy('lodash-node/modern/objects/defaults'),
     template = lazy('lodash-node/modern/utilities/template');
 
+var timports = {
+    imports: {
+        format: require('./formatters')
+    }
+};
+
+/**
+ * just a url helper
+ * @function make_url
+ * @param {String} protocol (http)
+ * @param {String} base (google.com)
+ * @param {String} path (/search)
+ * @return {String} full url (http://google.com/search)
+ */
+function make_url(protocol, base, path) {
+    return template('${ protocol }://${ base }/${ path }', {
+        protocol: protocol,
+        base: base,
+        path: path
+    });
+}
+
 /**
  * generates a request options object
  *
@@ -24,11 +46,7 @@ function gen_options(me, path, fields) {
     req = {
         headers: {},
         host: me.$request_config.base,
-        path: template(path, fields, {
-            imports: {
-                format: require('./formatters')
-            }
-        })
+        path: template(path, fields, timports)
     };
 
     me.emit('options', req);
@@ -194,10 +212,14 @@ function http_request(method, url, arglist, proxy) {
  * @return {Function}
  */
 function oauth_request(method, url, arglist) {
-    var OAuth = require('oauth').OAuth;
+    var OAuth = require('oauth').OAuth,
+        req_url;
 
     return function () {
         var deferred = Q.defer();
+
+        url = make_url('https', this.$request_config.base, url);
+        req_url = template(url, gen_params(arglist, arguments), timports);
 
         if (!this.$oauth) {
             this.$oauth = new OAuth(
@@ -211,11 +233,11 @@ function oauth_request(method, url, arglist) {
             );
         }
 
-        this.$log('requesting %s', template(url, gen_params(arglist, arguments)));
+        this.$log('requesting %s', req_url);
         this.$oauth.get(
-            template(url, gen_params(arglist, arguments)),
-            this.$auth.user_token,
-            this.$auth.user_secret,
+            req_url,
+            this.$fields.user_token,
+            this.$fields.user_secret,
             complete(deferred, this.$log)
         );
 

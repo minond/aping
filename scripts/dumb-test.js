@@ -2,20 +2,40 @@
 
 var Github = require('../client/github'),
     Lastfm = require('../client/lastfm'),
+    Fitbit = require('../client/fitbit'),
     MovesApp = require('../client/moves_app'),
     ForecaseIo = require('../client/forecast_io'),
     Meetup = require('../client/meetup');
 
-var moves = new MovesApp({
-    consumer_key: process.env.MOVES_APP_CLIENT_ID,
-    application_secret: process.env.MOVES_APP_SECRET,
-    access_token: process.env.MOVES_APP_ACCESS_TOKEN,
-    refresh_token: process.env.MOVES_APP_REFRESH_TOKEN
+var fitbit = new Fitbit({
+    consumer_key: process.env.FITBIT_API_KEY,
+    application_secret: process.env.FITBIT_SECRET,
+    user_token: process.env.FITBIT_ACCESS_TOKEN,
+    user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
 });
 
-moves.places(new Date('2014-11-15'), new Date('2014-11-17')).then(function () {
+fitbit.activities(new Date('2014-12-03')).then(function (activity) {
+    console.log(arguments)
+});
+
+fitbit.weight(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
     console.log(arguments);
 });
+
+fitbit.fat(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
+    console.log(arguments);
+});
+
+// var moves = new MovesApp({
+//     consumer_key: process.env.MOVES_APP_CLIENT_ID,
+//     application_secret: process.env.MOVES_APP_SECRET,
+//     access_token: process.env.MOVES_APP_ACCESS_TOKEN,
+//     refresh_token: process.env.MOVES_APP_REFRESH_TOKEN
+// });
+
+// moves.places(new Date('2014-11-15'), new Date('2014-11-17')).then(function () {
+//     console.log(arguments);
+// });
 
 // console.log(moves);
 

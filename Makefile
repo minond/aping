@@ -1,7 +1,7 @@
 -include vendor/minond/scaffold/plugins/js.mk
 
 install: dependencies
-	npm install
+	@npm install
 
 dependencies:
 	@git submodule update --init
