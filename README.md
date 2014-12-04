@@ -32,8 +32,8 @@ and here's how you would use that client:
 
 ```js
 var github = new Github({
-    token: process.env.GITHUB_TOKEN, // or however you store this
-    identifier: process.env.GITHUB_USER // or however you store this
+    token: process.env.GITHUB_TOKEN,
+    identifier: process.env.GITHUB_USER
 });
 
 // gets repos for the logged in user (identifier)
