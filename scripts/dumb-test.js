@@ -1,18 +1,35 @@
 'use strict';
 
+process.env.DEBUG = 'checker*';
+
+var fitbit, github, meetup, lastfm, forecast_io;
+
 var Github = require('../client/github'),
     Lastfm = require('../client/lastfm'),
     Fitbit = require('../client/fitbit'),
     MovesApp = require('../client/moves_app'),
     RescueTime = require('../client/rescue_time'),
-    ForecaseIo = require('../client/forecast_io'),
+    ForecastIo = require('../client/forecast_io'),
     Meetup = require('../client/meetup');
 
-var rescue_time = new RescueTime({
-    token: process.env.RESCUETIME_API_KEY
+function check(client, method, params, assertion) {
+    var assert = require('assert'),
+        log = require('debug')('checker:' + client.$log.namespace);
+
+    client[ method ].apply(client, params).then(function () {
+        assert.ok(assertion.apply({}, arguments));
+        log('pass');
+    }).catch(function (err) {
+        log('fail');
+        console.error(err);
+    });
+}
+
+process.on('exit', function (err) {
+    process.exit(1);
 });
 
-rescue_time.select(
+check(new RescueTime({token: process.env.RESCUETIME_API_KEY}), 'select', [
     new Date('2014-12-01'),
     new Date('2014-12-03'),
     {
@@ -20,27 +37,27 @@ rescue_time.select(
         resolution_time: 'hour',
         restrict_kind: 'activity'
     }
-).then(function () {
-    console.log(arguments);
+], function (activity) {
+    return !!activity.notes;
 });
 
-// var fitbit = new Fitbit({
-//     consumer_key: process.env.FITBIT_API_KEY,
-//     application_secret: process.env.FITBIT_SECRET,
-//     user_token: process.env.FITBIT_ACCESS_TOKEN,
-//     user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
+fitbit = new Fitbit({
+    consumer_key: process.env.FITBIT_API_KEY,
+    application_secret: process.env.FITBIT_SECRET,
+    user_token: process.env.FITBIT_ACCESS_TOKEN,
+    user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
+});
+
+// check(fitbit, 'activities', [new Date('2014-12-03')], function (activities) {
+//     return 'summary' in activities;
 // });
-//
-// fitbit.activities(new Date('2014-12-03')).then(function (activity) {
-//     console.log(arguments)
+// 
+// check(fitbit, 'weight', [new Date('2014-12-01'), new Date('2014-12-03')], function (weight) {
+//     return 'weight' in weight;
 // });
-//
-// fitbit.weight(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
-//     console.log(arguments);
-// });
-//
-// fitbit.fat(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
-//     console.log(arguments);
+// 
+// check(fitbit, 'fat', [new Date('2014-12-01'), new Date('2014-12-03')], function (fat) {
+//     return 'fat' in fat;
 // });
 
 // var moves = new MovesApp({
@@ -54,110 +71,45 @@ rescue_time.select(
 //     console.log(arguments);
 // });
 
-// console.log(moves);
+github = new Github({
+    token: process.env.GITHUB_TOKEN,
+    identifier: process.env.GITHUB_USER
+});
 
-// var github = new Github({
-//     token: process.env.GITHUB_TOKEN,
-//     identifier: process.env.GITHUB_USER
-// });
+check(github, 'repos', [], function (repos) {
+    return repos.length;
+});
 
-// var meetup = new Meetup({
-//     token: process.env.MEETUP_API_KEY,
-//     identifier: process.env.MEETUP_USER_ID
-// });
+check(github, 'commit', ['vulpes', '1dc8aba18256681a837d12180793ce384c9ffac6'], function (commit) {
+    return commit.sha === '1dc8aba18256681a837d12180793ce384c9ffac6';
+});
 
-// var lastfm = new Lastfm({
-//     token: process.env.LASTFM_API_KEY,
-//     identifier: process.env.LASTFM_USER
-// });
+check(github, 'commits', ['vulpes', new Date('2014-10-11'), new Date('2014-10-12')], function (commits) {
+    return commits[0].sha === '1dc8aba18256681a837d12180793ce384c9ffac6';
+});
 
-// var forecast_io = new ForecaseIo({
-//     token: process.env.FORECASTIO_API_KEY
-// });
+meetup = new Meetup({
+    token: process.env.MEETUP_API_KEY,
+    identifier: process.env.MEETUP_USER_ID
+});
 
-// forecast_io.forecast(process.env.MY_LATITUDE, process.env.MY_LONGITUDE).then(function (res) {
-//     console.log(res);
-// });
+check(meetup, 'events', ['Node-Ninjas'], function (events) {
+    return events.results;
+});
 
-// lastfm.recent_tracks(new Date('2014-11-03'), new Date('2014-11-04')).then(function (res) {
-//     console.log(res);
-// });
+lastfm = new Lastfm({
+    token: process.env.LASTFM_API_KEY,
+    identifier: process.env.LASTFM_USER
+});
 
+check(lastfm, 'recent_tracks', [new Date('2014-11-03'), new Date('2014-11-04')], function (songs) {
+    return songs.recenttracks.track[0].artist['#text'] === 'Aesop Rock';
+});
 
-// meetup.events('Node-Ninjas').then(function (res) {
-//     console.log(res);
-// });
+forecast_io = new ForecastIo({
+    token: process.env.FORECASTIO_API_KEY
+});
 
-// github.repos().then(function (repos) {
-//     console.log(require('util').inspect(repos, {colors: false}));
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var aping = require('./src/aping');
-
-// github.commits('vulpes', new Date('2014-10-11'), new Date).then(function (commits) {
-//     console.log(require('util').inspect(commits, {colors: false}));
-// });
-
-// var aping = require('./src/aping');
-// var token = require('./src/token');
-// var signature = require('./src/signature');
-//
-// aping.prototype.$qtest = function (method, args) {
-//     this[ method ].apply(this, args).then(function (res) {
-//         this.$log('done');
-//         this.$log('res: %s ...', JSON.stringify(res).substr(0, 100));
-//     }.bind(this), function () {
-//         this.$log('error');
-//     }.bind(this));
-// };
-//
-//
-// var Github = aping('api.github.com', [signature, token]);
-// Github.endpoint.repos = aping.https('/users/${ user || fields.identifier }/repos', ['user']);
-// new Github({
-//     token: process.env.GITHUB_TOKEN,
-//     identifier: process.env.GITHUB_USER
-// }).$qtest('repos', ['fat']);
-// new Github({
-//     token: process.env.GITHUB_TOKEN,
-//     identifier: process.env.GITHUB_USER
-// }).$qtest('repos');
-//
-// var ForecaseIo = aping('api.forecast.io');
-// ForecaseIo.endpoint.forecast = aping.https(
-//     '/forecast/${ fields.token }/${ latitude },${ longitude }',
-//     ['latitude', 'longitude']);
-// new ForecaseIo({
-//     token: process.env.FORECASTIO_API_KEY
-// }).$qtest('forecast', [process.env.MY_LATITUDE, process.env.MY_LONGITUDE]);
-//
-// var Meetup = aping('api.meetup.com');
-// Meetup.endpoint.groups = aping.https(
-//     '/2/groups?key=${ fields.token }&member_id=${ member_id || fields.identifier }',
-//     ['member_id']);
-// new Meetup({
-//     token: process.env.MEETUP_API_KEY,
-//     identifier: process.env.MEETUP_USER_ID
-// }).$qtest('groups');
-//
-//
-//
-// var NodeNinjas = aping('api.nodeninjas.io', [signature], {
-//     users: aping.http.get('users'),
-// });
-// var nn = new NodeNinjas;
-// nn.on('error', console.log.bind(console));
-// nn.$qtest('users');
+check(forecast_io, 'forecast', [process.env.MY_LATITUDE, process.env.MY_LONGITUDE], function (forecast) {
+    return forecast.timezone === 'America/Denver';
+});

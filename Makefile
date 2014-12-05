@@ -9,6 +9,9 @@ dependencies:
 documentation: install
 	@./scripts/client-documentation client
 
+apitest:
+	@DEBUG=checker* node scripts/dumb-test.js
+
 test: install js-mocha
 lint: install
 	$(NPM_BIN)/jscs $(JS_JSCS_FLAGS) $(JS_JSCS_FILES) client
