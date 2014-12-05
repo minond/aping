@@ -2,6 +2,8 @@
 
 process.env.DEBUG = 'checker*';
 
+var errored = false;
+
 var fitbit, github, meetup, lastfm, forecast_io;
 
 var Github = require('../client/github'),
@@ -20,13 +22,14 @@ function check(client, method, params, assertion) {
         assert.ok(assertion.apply({}, arguments));
         log('pass');
     }).catch(function (err) {
+        errored = true;
         log('fail');
         console.error(err);
     });
 }
 
 process.on('exit', function (err) {
-    process.exit(1);
+    process.exit(errored ? 1 : 0);
 });
 
 check(new RescueTime({token: process.env.RESCUETIME_API_KEY}), 'select', [
