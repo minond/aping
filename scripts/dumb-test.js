@@ -4,27 +4,44 @@ var Github = require('../client/github'),
     Lastfm = require('../client/lastfm'),
     Fitbit = require('../client/fitbit'),
     MovesApp = require('../client/moves_app'),
+    RescueTime = require('../client/rescue_time'),
     ForecaseIo = require('../client/forecast_io'),
     Meetup = require('../client/meetup');
 
-var fitbit = new Fitbit({
-    consumer_key: process.env.FITBIT_API_KEY,
-    application_secret: process.env.FITBIT_SECRET,
-    user_token: process.env.FITBIT_ACCESS_TOKEN,
-    user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
+var rescue_time = new RescueTime({
+    token: process.env.RESCUETIME_API_KEY
 });
 
-fitbit.activities(new Date('2014-12-03')).then(function (activity) {
-    console.log(arguments)
-});
-
-fitbit.weight(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
+rescue_time.select(
+    new Date('2014-12-01'),
+    new Date('2014-12-03'),
+    {
+        perspective: 'rank',
+        resolution_time: 'hour',
+        restrict_kind: 'activity'
+    }
+).then(function () {
     console.log(arguments);
 });
 
-fitbit.fat(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
-    console.log(arguments);
-});
+// var fitbit = new Fitbit({
+//     consumer_key: process.env.FITBIT_API_KEY,
+//     application_secret: process.env.FITBIT_SECRET,
+//     user_token: process.env.FITBIT_ACCESS_TOKEN,
+//     user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
+// });
+//
+// fitbit.activities(new Date('2014-12-03')).then(function (activity) {
+//     console.log(arguments)
+// });
+//
+// fitbit.weight(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
+//     console.log(arguments);
+// });
+//
+// fitbit.fat(new Date('2014-12-01'), new Date('2014-12-03')).then(function (activity) {
+//     console.log(arguments);
+// });
 
 // var moves = new MovesApp({
 //     consumer_key: process.env.MOVES_APP_CLIENT_ID,

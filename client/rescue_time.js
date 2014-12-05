@@ -14,7 +14,12 @@ var URL_SELECT = '/anapi/data?' +
     'restrict_thingy=${ query.restrict_thingy }&' +
     'operation=select';
 
-var aping = require('../src/aping');
+var aping = require('../src/aping'),
+    reqmod = require('../src/reqmod');
+
+var reject_unauthorized = reqmod({
+    rejectUnauthorized: false
+});
 
 /**
  * @link https://www.rescuetime.com/anapi/manage
@@ -23,7 +28,7 @@ var aping = require('../src/aping');
  * @class RescueTime
  * @param {Object} config
  */
-module.exports = aping('rescuetime.com', {
+module.exports = aping('rescuetime.com', [reject_unauthorized], {
     /**
      * @link https://www.rescuetime.com/anapi/setup/documentation
      * @method select
