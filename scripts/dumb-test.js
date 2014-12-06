@@ -61,7 +61,7 @@ function check(client, method, params, assertion) {
     });
 }
 
-process.on('exit', function (err) {
+process.on('exit', function () {
     process.exit(errored ? 1 : 0);
 });
 
