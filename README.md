@@ -80,3 +80,7 @@ currently available:
 ##### [MovesApp](https://dev.moves-app.com/)
 
 * [places](https://dev.moves-app.com/docs/api_places)(from, to)
+
+##### [RescueTime](https://www.rescuetime.com/anapi/manage)
+
+* [select](https://www.rescuetime.com/anapi/setup/documentation)(since, until, query)

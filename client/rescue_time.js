@@ -32,9 +32,9 @@ module.exports = aping('rescuetime.com', [reject_unauthorized], {
     /**
      * @link https://www.rescuetime.com/anapi/setup/documentation
      * @method select
-     * @return {Date} since
-     * @return {Date} until
-     * @return {Object} query
+     * @param {Date} since
+     * @param {Date} until
+     * @param {Object} query
      * @return {Q.Promise}
      */
     select: aping.https(URL_SELECT, ['since', 'until', 'query'])
