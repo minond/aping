@@ -22,14 +22,15 @@
     "complexity-report": "^1.0.6",
     "jshint": "^2.5.10",
     "jscs": "^1.7.3",
-    "coveralls": "^2.11.2",
-    "expect.js": "^0.3.1"
+    "coveralls": "^2.11.2"
   },
   "dependencies": {
-    "q": "~1.0.1",
-    "oauth": "~0.9.12",
-    "lodash-node": "~2.4.1",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1",
     "debug": "~2.0.0",
+    "lodash-node": "~2.4.1",
+    "oauth": "~0.9.12",
+    "q": "~1.0.1",
     "require-lazy-loader": "0.0.2"
   }
 }

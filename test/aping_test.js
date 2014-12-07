@@ -18,7 +18,7 @@ function generate_request_tests_for(Aping, MyApi, type) {
 
 describe('Aping', function () {
     var Aping = require('../src/aping'),
-        expect = require('expect.js'),
+        assert = require('assert'),
         aping = Aping;
 
     describe('#constructor', function () {
@@ -31,7 +31,7 @@ describe('Aping', function () {
             });
 
             myapi.emit('hi');
-            expect(called).to.be(true);
+            assert(called);
         });
     });
 
