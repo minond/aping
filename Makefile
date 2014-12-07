@@ -9,8 +9,8 @@ dependencies:
 documentation: install
 	@./scripts/client-documentation client
 
-apitest:
-	@DEBUG=checker* node scripts/dumb-test.js
+integration:
+	@DEBUG=* node test/integration/run
 
 test: install js-mocha
 lint: install
