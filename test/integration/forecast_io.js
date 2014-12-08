@@ -10,10 +10,6 @@ describe('ForecastIo', function () {
     var lat = process.env.MY_LATITUDE,
         lon = process.env.MY_LONGITUDE;
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#forecast', function () {
         return forecast_io.forecast(lat, lon).should.eventually.have
             .property('timezone')

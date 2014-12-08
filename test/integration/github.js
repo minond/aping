@@ -14,10 +14,6 @@ describe('Github', function () {
     var since = new Date('2014-10-11'),
         until = new Date('2014-10-12');
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#repos', function () {
         return github.repos().should.eventually.have
             .property('length');

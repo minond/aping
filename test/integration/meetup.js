@@ -8,10 +8,6 @@ describe('Meetup', function () {
         identifier: process.env.MEETUP_USER_ID
     });
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#events', function () {
         return meetup.events('Node-Ninjas').should.eventually.have
             .property('results');

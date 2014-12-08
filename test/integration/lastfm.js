@@ -11,10 +11,6 @@ describe('Lastfm', function () {
     var since = new Date('2014-11-03'),
         until = new Date('2014-11-04');
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#recent_tracks', function () {
         return lastfm.recent_tracks(since, until).should.eventually.have
             .property('recenttracks')

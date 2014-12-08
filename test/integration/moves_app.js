@@ -16,10 +16,6 @@ describe.skip('MovesApp', function () {
     var since = new Date('2014-11-15'),
         until = new Date('2014-11-17');
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#places', function () {
         return moves.places(since, until).should.be.fulfilled;
     });

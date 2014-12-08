@@ -16,10 +16,6 @@ describe('RescueTime', function () {
         restrict_kind: 'activity'
     };
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#select', function () {
         return rescue_time.select(since, until, query).should.eventually.have
             .property('notes');

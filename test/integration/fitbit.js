@@ -13,10 +13,6 @@ describe('Fitbit', function () {
     var since = new Date('2014-12-01'),
         until = new Date('2014-12-03');
 
-    require('chai')
-        .use(require('chai-as-promised'))
-        .should();
-
     it('#activities', function () {
         return fitbit.activities(since).should.eventually.have
             .property('summary');
