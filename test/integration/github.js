@@ -1,28 +1,38 @@
 'use strict';
 
-var Github = require('../../client/github'),
-    test = require('./common').test,
-    assert = require('assert');
+describe('Github', function () {
+    var Github = require('../../client/github');
 
-var github = new Github({
-    token: process.env.GITHUB_TOKEN,
-    identifier: process.env.GITHUB_USER
-});
+    var github = new Github({
+        token: process.env.GITHUB_TOKEN,
+        identifier: process.env.GITHUB_USER
+    });
 
-var repo = 'vulpes',
-    sha = '1dc8aba18256681a837d12180793ce384c9ffac6';
+    var repo = 'vulpes',
+        sha = '1dc8aba18256681a837d12180793ce384c9ffac6';
 
-var since = new Date('2014-10-11'),
-    until = new Date('2014-10-12');
+    var since = new Date('2014-10-11'),
+        until = new Date('2014-10-12');
 
-test(github.repos(), function (repos) {
-    assert(repos.length);
-});
+    require('chai')
+        .use(require('chai-as-promised'))
+        .should();
 
-test(github.commit(repo, sha), function (commit) {
-    assert.equal(commit.sha, sha);
-});
+    it('#repos', function () {
+        return github.repos().should.eventually.have
+            .property('length');
+    });
 
-test(github.commits(repo, since, until), function (commits) {
-    assert(commits[0].sha, sha);
+    it('#commit', function () {
+        return github.commit(repo, sha).should.eventually.have
+            .property('sha')
+            .equal(sha);
+    });
+
+    it('#commits', function () {
+        return github.commits(repo, since, until).should.eventually.have
+            .property('0')
+            .property('sha')
+            .equal(sha);
+    });
 });

@@ -1,27 +1,34 @@
 'use strict';
 
-var Fitbit = require('../../client/fitbit'),
-    test = require('./common').test,
-    assert = require('assert');
+describe('Fitbit', function () {
+    var Fitbit = require('../../client/fitbit');
 
-var fitbit = new Fitbit({
-    consumer_key: process.env.FITBIT_API_KEY,
-    application_secret: process.env.FITBIT_SECRET,
-    user_token: process.env.FITBIT_ACCESS_TOKEN,
-    user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
-});
+    var fitbit = new Fitbit({
+        consumer_key: process.env.FITBIT_API_KEY,
+        application_secret: process.env.FITBIT_SECRET,
+        user_token: process.env.FITBIT_ACCESS_TOKEN,
+        user_secret: process.env.FITBIT_ACCESS_TOKEN_SECRET
+    });
 
-var since = new Date('2014-12-01'),
-    until = new Date('2014-12-03');
+    var since = new Date('2014-12-01'),
+        until = new Date('2014-12-03');
 
-test(fitbit.activities(since), function (activities) {
-    assert('summary' in activities);
-});
+    require('chai')
+        .use(require('chai-as-promised'))
+        .should();
 
-test(fitbit.weight(since, until), function (activities) {
-    assert('weight' in activities);
-});
+    it('#activities', function () {
+        return fitbit.activities(since).should.eventually.have
+            .property('summary');
+    });
 
-test(fitbit.fat(since, until), function (activities) {
-    assert('fat' in activities);
+    it('#weight', function () {
+        return fitbit.weight(since, until).should.eventually.have
+            .property('weight');
+    });
+
+    it('#fat', function () {
+        return fitbit.fat(since, until).should.eventually.have
+            .property('fat');
+    });
 });

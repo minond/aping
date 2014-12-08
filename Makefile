@@ -9,8 +9,8 @@ dependencies:
 documentation: install
 	@./scripts/client-documentation client
 
-integration:
-	@DEBUG=* node test/integration/run
+apitest:
+	@$(NPM_BIN)/mocha --timeout 10000 test/integration/*
 
 test: install js-mocha
 lint: install
