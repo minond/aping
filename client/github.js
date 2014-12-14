@@ -1,9 +1,9 @@
 'use strict';
 
-var URL_USERS = '/users/${ user || fields.identifier }/repos',
-    URL_COMMIT = '/repos/${ user || fields.identifier }/${ repo }/commits/${ sha }',
-    URL_COMMITS = '/repos/${ user || fields.identifier }/${ repo }/commits?' +
-        'author=${ user || fields.identifier }&' +
+var URL_USERS = '/users/${ identifier }/repos',
+    URL_COMMIT = '/repos/${ identifier }/${ repo }/commits/${ sha }',
+    URL_COMMITS = '/repos/${ identifier }/${ repo }/commits?' +
+        'author=${ identifier }&' +
         'since=${ since.toISOString() }&' +
         'until=${ until.toISOString() }&' +
         'page=${ page }&' +
@@ -26,20 +26,20 @@ module.exports = aping('api.github.com', [signature, token], {
     /**
      * @link https://developer.github.com/v3/repos/
      * @method repos
-     * @param {String} [user] (default: config.identifier)
+     * @param {String} [identifier]
      * @return {Q.Promise}
      */
-    repos: aping.https(URL_USERS, ['user']),
+    repos: aping.https(URL_USERS, ['identifier']),
 
     /**
      * @link https://developer.github.com/v3/repos/commits/#get-a-single-commit
      * @method commit
      * @param {String} repo
      * @param {String} sha
-     * @param {String} [user] (default: config.identifier)
+     * @param {String} [identifier]
      * @return {Q.Promise}
      */
-    commit: aping.https(URL_COMMIT, ['repo', 'sha', 'user']),
+    commit: aping.https(URL_COMMIT, ['repo', 'sha', 'identifier']),
 
     /**
      * @link https://developer.github.com/v3/repos/commits/
@@ -48,8 +48,8 @@ module.exports = aping('api.github.com', [signature, token], {
      * @param {Date} [since]
      * @param {Date} [until]
      * @param {Number} [page] (default: 1)
-     * @param {String} [user] (default: config.identifier)
+     * @param {String} [identifier]
      * @return {Q.Promise}
      */
-    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'user'])
+    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'identifier'])
 });

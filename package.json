@@ -16,17 +16,18 @@
     "url": "http://github.com/minond/aping"
   },
   "devDependencies": {
-    "dox": "~0.5.3",
-    "istanbul": "^0.3.2",
-    "mocha": "^2.0.1",
-    "complexity-report": "^1.0.6",
-    "jshint": "^2.5.10",
-    "jscs": "^1.7.3",
-    "coveralls": "^2.11.2"
-  },
-  "dependencies": {
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
+    "chai-things": "^0.2.0",
+    "complexity-report": "^1.0.6",
+    "coveralls": "^2.11.2",
+    "dox": "~0.5.3",
+    "istanbul": "^0.3.2",
+    "jscs": "^1.7.3",
+    "jshint": "^2.5.10",
+    "mocha": "^2.0.1"
+  },
+  "dependencies": {
     "debug": "~2.0.0",
     "lodash-node": "~2.4.1",
     "oauth": "~0.9.12",

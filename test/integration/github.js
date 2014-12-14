@@ -14,9 +14,16 @@ describe('Github', function () {
     var since = new Date('2014-10-11'),
         until = new Date('2014-10-12');
 
-    it('#repos', function () {
-        return github.repos().should.eventually.have
-            .property('length');
+    describe('#repos', function () {
+        it('can get repos for the user specified in the constructor', function () {
+            return github.repos().should.eventually.contain.something.with
+                .property('id', 24484705);
+        });
+
+        it('can get repos for the user pass in the call', function () {
+            return github.repos('github').should.eventually.contain.something.with
+                .property('id', 2349728);
+        });
     });
 
     it('#commit', function () {
