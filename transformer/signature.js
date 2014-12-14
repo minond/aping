@@ -8,6 +8,6 @@
  */
 module.exports = function signature(client) {
     client.on('options', function (req) {
-        req.headers['User-Agent'] = this.$fields.identifier;
+        req.headers['User-Agent'] = this.$conf.identifier;
     });
 };

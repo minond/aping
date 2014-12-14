@@ -7,6 +7,6 @@
  */
 module.exports = function token(client) {
     client.on('options', function (req) {
-        req.auth = this.$fields.token + ':x-oauth-basic';
+        req.auth = this.$conf.token + ':x-oauth-basic';
     });
 };

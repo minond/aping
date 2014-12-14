@@ -15,8 +15,8 @@ var http_request = lazy('./requests http_request'),
  * @class Aping
  * @extends EventEmitter
  *
- * @signature `new Aping(fields, request_base)`
- * @param {Object} [fields]
+ * @signature `new Aping(conf, request_base)`
+ * @param {Object} [conf]
  * @param {String} [request_base]
  * @return {Aping}
  *
@@ -28,9 +28,9 @@ var http_request = lazy('./requests http_request'),
  * @param {Object} [endpoints]
  * @return {ApingClient}
  */
-var Aping = module.exports = function Aping(fields, request_base, endpoints) {
+var Aping = module.exports = function Aping(conf, request_base, endpoints) {
     if (!(this instanceof Aping)) {
-        return client(fields, request_base, endpoints);
+        return client(conf, request_base, endpoints);
     }
 
     EventEmitter.call(this);
@@ -40,7 +40,7 @@ var Aping = module.exports = function Aping(fields, request_base, endpoints) {
      * @property $oauth
      * @type {Object}
      */
-    this.$fields = fields || {};
+    this.$conf = conf || {};
 
     /**
      * base url of the api

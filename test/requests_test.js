@@ -13,7 +13,7 @@ describe('requests', function () {
 
     beforeEach(function () {
         me = {
-            $fields: {},
+            $conf: {},
             $request_config: {},
             emit: function () {
                 return;
@@ -31,20 +31,20 @@ describe('requests', function () {
     });
 
     describe('#gen_options', function () {
-        it('uses $fields as defaults', function () {
-            me.$fields.name = 'Marcos';
+        it('uses $conf as defaults', function () {
+            me.$conf.name = 'Marcos';
             options = requests.$gen_options(me, 'hi ${name}');
             assert.equal(options.path, 'hi Marcos');
         });
 
-        it('$fields are always accessible', function () {
-            me.$fields.name = 'Marcos';
-            options = requests.$gen_options(me, 'hi ${fields.name}');
+        it('$conf are always accessible', function () {
+            me.$conf.name = 'Marcos';
+            options = requests.$gen_options(me, 'hi ${conf.name}');
             assert.equal(options.path, 'hi Marcos');
         });
 
-        it('$fields can be overwritten', function () {
-            me.$fields.name = 'Marcos';
+        it('$conf can be overwritten', function () {
+            me.$conf.name = 'Marcos';
             options = requests.$gen_options(me, 'hi ${name}', { name: 'Andres' });
             assert.equal(options.path, 'hi Andres');
         });
@@ -107,18 +107,18 @@ describe('requests', function () {
 
     describe('#needs_new_access_token', function () {
         it('does when there is no previous token', function () {
-            assert(requests.$needs_new_access_token({ $fields: {} }));
-            assert(requests.$needs_new_access_token({ $fields: { access_token: false } }));
+            assert(requests.$needs_new_access_token({ $conf: {} }));
+            assert(requests.$needs_new_access_token({ $conf: { access_token: false } }));
         });
 
         it('does when the expiration date is in the past', function () {
-            me.$fields.access_token = 123;
+            me.$conf.access_token = 123;
             me.$auth = { expires_in: Date.now() - 100 };
             assert(requests.$needs_new_access_token(me));
         });
 
         it('does not when the expiration date is in the future', function () {
-            me.$fields.access_token = 123;
+            me.$conf.access_token = 123;
             me.$auth = { expires_in: Date.now() + 100 };
             assert(!requests.$needs_new_access_token(me));
         });

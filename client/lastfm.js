@@ -1,8 +1,8 @@
 'use strict';
 
 var URL_RECENT_TRACKS = '/2.0/?format=json&limit=200&' +
-    'api_key=${ fields.token }&' +
-    'user=${ fields.identifier }&' +
+    'api_key=${ conf.token }&' +
+    'user=${ conf.identifier }&' +
     'page=${ page }&' +
     'from=${ since.getTime() }&' +
     'to=${ until.getTime() }&' +

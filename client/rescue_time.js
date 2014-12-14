@@ -1,7 +1,7 @@
 'use strict';
 
 var URL_SELECT = '/anapi/data?' +
-    'format=json&version=0&key=${ fields.token }&' +
+    'format=json&version=0&key=${ conf.token }&' +
     'perspective=${ query.perspective }&' +
     'resolution_time=${ query.resolution_time}&' +
     'restrict_group=${ query.restrict_group }&' +

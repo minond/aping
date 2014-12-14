@@ -1,6 +1,6 @@
 'use strict';
 
-var URL_EVENTS = '/2/events?key=${ fields.token }&' +
+var URL_EVENTS = '/2/events?key=${ conf.token }&' +
     'group_urlname=${ group_urlname }&' +
     'status=${ status || "upcoming,past,proposed,suggested,cancelled,draft" }';
 

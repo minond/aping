@@ -33,20 +33,20 @@ function make_url(protocol, base, path) {
  * @function gen_options
  * @param {Aping} me an instance of an Aping object
  * @param {string} path url path. can be a lodash template string
- * @param {Object} [fields]
+ * @param {Object} [conf]
  * @return {Object}
  */
-function gen_options(me, path, fields) {
+function gen_options(me, path, conf) {
     var req;
 
-    fields = defaults(fields || {}, {
-        fields: me.$fields
-    }, me.$fields);
+    conf = defaults(conf || {}, {
+        conf: me.$conf
+    }, me.$conf);
 
     req = {
         headers: {},
         host: me.$request_config.base,
-        path: template(path, fields, timports)
+        path: template(path, conf, timports)
     };
 
     me.emit('options', req);
@@ -138,7 +138,7 @@ function request_new_access_token(me, callback) {
         res.on('data', buffers.push.bind(buffers));
         res.on('end', function () {
             var auth = JSON.parse(buffers.join(''));
-            me.$fields.access_token = auth.access_token;
+            me.$conf.access_token = auth.access_token;
             me.$auth.expires_in = Date.now() + auth.expires_in * 1000;
 
             if (auth.error) {
@@ -162,7 +162,7 @@ function request_new_access_token(me, callback) {
  * @return {boolean}
  */
 function needs_new_access_token(me) {
-    return !me.$fields.access_token || me.$auth.expires_in <= Date.now();
+    return !me.$conf.access_token || me.$auth.expires_in <= Date.now();
 }
 
 /**
@@ -225,8 +225,8 @@ function oauth_request(method, url, arglist) {
             this.$oauth = new OAuth(
                 this.$auth.request_token_url,
                 this.$auth.request_access_url,
-                this.$fields.consumer_key,
-                this.$fields.application_secret,
+                this.$conf.consumer_key,
+                this.$conf.application_secret,
                 this.$auth.api_version,
                 null,
                 this.$auth.signature_method
@@ -236,8 +236,8 @@ function oauth_request(method, url, arglist) {
         this.$log('requesting %s', req_url);
         this.$oauth.get(
             req_url,
-            this.$fields.user_token,
-            this.$fields.user_secret,
+            this.$conf.user_token,
+            this.$conf.user_secret,
             complete(deferred, this.$log)
         );
 

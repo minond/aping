@@ -14,8 +14,8 @@ var Aping = require('./aping'),
  * @return {Function}
  */
 module.exports = function client(request_base, transformers, endpoints) {
-    function ApingClient(fields) {
-        Aping.call(this, fields, request_base);
+    function ApingClient(conf) {
+        Aping.call(this, conf, request_base);
     }
 
     if (!endpoints && isPlainObject(transformers)) {
