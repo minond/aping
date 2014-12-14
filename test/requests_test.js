@@ -104,4 +104,23 @@ describe('requests', function () {
             assert.deepEqual(requests.$gen_params(null, ['Marcos']), {});
         });
     });
+
+    describe('#needs_new_access_token', function () {
+        it('does when there is no previous token', function () {
+            assert(requests.$needs_new_access_token({ $fields: {} }));
+            assert(requests.$needs_new_access_token({ $fields: { access_token: false } }));
+        });
+
+        it('does when the expiration date is in the past', function () {
+            me.$fields.access_token = 123;
+            me.$auth = { expires_in: Date.now() - 100 };
+            assert(requests.$needs_new_access_token(me));
+        });
+
+        it('does not when the expiration date is in the future', function () {
+            me.$fields.access_token = 123;
+            me.$auth = { expires_in: Date.now() + 100 };
+            assert(!requests.$needs_new_access_token(me));
+        });
+    });
 });
