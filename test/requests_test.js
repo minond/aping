@@ -70,4 +70,24 @@ describe('requests', function () {
             requests.$resolve(deferred, ['{:true}'], log)();
         });
     });
+
+    describe('#complete', function () {
+        it('resolves a promise when there are no errors', function (done) {
+            deferred = Q.defer();
+            deferred.promise.then(function () {
+                done();
+            });
+
+            requests.$complete(deferred, log)(null, '{}');
+        });
+
+        it('rejects a promise when there is an error', function (done) {
+            deferred = Q.defer();
+            deferred.promise.then(function () {}, function () {
+                done();
+            });
+
+            requests.$complete(deferred, log)(new Error());
+        });
+    });
 });
