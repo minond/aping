@@ -1,14 +1,11 @@
 'use strict';
 
 describe('requests', function () {
-    var proxy, request, options, me, deferred;
+    var options, me, deferred;
 
     var Q = require('q'),
         assert = require('assert'),
-        requests = require('../src/requests'),
-        http = requests.http_request,
-        oauth = requests.oauth_request,
-        oauth2 = requests.oauth2_request;
+        requests = require('../src/requests');
 
     function log() {
         return;
@@ -66,7 +63,7 @@ describe('requests', function () {
 
         it('rejects when json is invalid', function (done) {
             deferred = Q.defer();
-            deferred.promise.then(function () {}, function (obj) {
+            deferred.promise.then(function () {}, function () {
                 done();
             });
 
