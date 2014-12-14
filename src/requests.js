@@ -277,7 +277,14 @@ function oauth2_request(method, url, arglist) {
 }
 
 module.exports = {
+    $complete: complete,
+    $gen_options: gen_options,
+    $gen_params: gen_params,
+    $make_url: make_url,
+    $needs_new_access_token: needs_new_access_token,
+    $request_new_access_token: request_new_access_token,
+    $resolve: resolve,
     http_request: http_request,
-    oauth_request: oauth_request,
-    oauth2_request: oauth2_request
+    oauth2_request: oauth2_request,
+    oauth_request: oauth_request
 };
