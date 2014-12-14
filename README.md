@@ -3,15 +3,14 @@
 
 `aping` - lets you easily create api clients.
 
-#### installing
+#### usage
 
-haven't published this to npm yet, will do so after I get more tests and the
-api is finalized. if you do want to install it, however, you can do so using
-the github repo: `npm install minond/aping`
+just import any available client saved in the `client` directory:
 
-#### tests
-
-clone the repo and run `make test`
+```js
+var Github = require('aping/client/github'),
+    github = new Github({ /* config /* });
+```
 
 #### example
 
@@ -84,3 +83,13 @@ currently available:
 ##### [RescueTime](https://www.rescuetime.com/anapi/manage)
 
 * [select](https://www.rescuetime.com/anapi/setup/documentation)(since, until, query)
+
+#### installing
+
+haven't published this to npm yet, will do so after I get more tests and the
+api is finalized. if you do want to install it, however, you can do so using
+the github repo: `npm install minond/aping`
+
+#### tests
+
+clone the repo and run `make test`
