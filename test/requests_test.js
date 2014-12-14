@@ -98,5 +98,10 @@ describe('requests', function () {
                 age: 25
             });
         });
+
+        it('returns an empty set when no args are specified', function () {
+            assert.deepEqual(requests.$gen_params([], ['Marcos']), {});
+            assert.deepEqual(requests.$gen_params(null, ['Marcos']), {});
+        });
     });
 });
