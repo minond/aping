@@ -29,10 +29,22 @@ describe('requests', function () {
     });
 
     describe('#gen_options', function () {
-        it('uses $fields as default', function () {
+        it('uses $fields as defaults', function () {
             me.$fields.name = 'Marcos';
             options = requests.$gen_options(me, 'hi ${name}');
             assert.equal(options.path, 'hi Marcos');
+        });
+
+        it('$fields are always accessible', function () {
+            me.$fields.name = 'Marcos';
+            options = requests.$gen_options(me, 'hi ${fields.name}');
+            assert.equal(options.path, 'hi Marcos');
+        });
+
+        it('$fields can be overwritten', function () {
+            me.$fields.name = 'Marcos';
+            options = requests.$gen_options(me, 'hi ${name}', { name: 'Andres' });
+            assert.equal(options.path, 'hi Andres');
         });
     });
 });

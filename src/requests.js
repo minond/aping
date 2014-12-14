@@ -41,7 +41,7 @@ function gen_options(me, path, fields) {
 
     fields = defaults(fields || {}, {
         fields: me.$fields
-    });
+    }, me.$fields);
 
     req = {
         headers: {},
