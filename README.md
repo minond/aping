@@ -92,4 +92,5 @@ the github repo: `npm install minond/aping`
 
 #### tests
 
-clone the repo and run `make test`
+clone the repo and run `make test` to run unit tests and `make apitest` to run
+the integration tests (needs env vars)
