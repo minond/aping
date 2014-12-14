@@ -15,7 +15,7 @@ var URL_SELECT = '/anapi/data?' +
     'operation=select';
 
 var aping = require('../src/aping'),
-    reqmod = require('../src/reqmod');
+    reqmod = require('../transformer/reqmod');
 
 var reject_unauthorized = reqmod({
     rejectUnauthorized: false

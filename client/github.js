@@ -10,8 +10,8 @@ var URL_USERS = '/users/${ user || fields.identifier }/repos',
         'per_page=100';
 
 var aping = require('../src/aping'),
-    token = require('../src/token'),
-    signature = require('../src/signature');
+    token = require('../transformer/token'),
+    signature = require('../transformer/signature');
 
 /**
  * @link https://developer.github.com/v3/

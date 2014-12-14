@@ -19,8 +19,8 @@ information for any user:
 
 ```js
 var aping = require('aping'),
-    token = require('aping/src/token'),
-    signature = require('aping/src/signature');
+    token = require('aping/transformer/token'),
+    signature = require('aping/transformer/signature');
 
 var Github = aping('api.github.com', [signature, token], {
     repos: aping.https('/users/${ user || fields.identifier }/repos', ['user'])

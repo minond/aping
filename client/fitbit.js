@@ -10,7 +10,7 @@ var URL_USER_ACTIVITIES = URL_TMPL_USER + 'activities' + URL_TMPL_DATE,
     URL_USER_FAT = URL_TMPL_USER + 'body/log/fat' + URL_TMPL_DATE_RANGE;
 
 var aping = require('../src/aping'),
-    config = require('../src/config');
+    config = require('../transformer/config');
 
 var auth = {
     request_token_url: 'https://api.fitbit.com/oauth/request_token',

@@ -5,8 +5,8 @@ var URL_BASE = '/api/1.1/',
     URL_PLACES = URL_BASE + 'user/places/daily?' + URL_DATE_RANGE;
 
 var aping = require('../src/aping'),
-    refresh = require('../src/refresh'),
-    config = require('../src/config');
+    refresh = require('../transformer/refresh'),
+    config = require('../transformer/config');
 
 var auth = {
     expires_in: new Date(),
