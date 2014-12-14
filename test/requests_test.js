@@ -90,4 +90,13 @@ describe('requests', function () {
             requests.$complete(deferred, log)(new Error());
         });
     });
+
+    describe('#gen_params', function () {
+        it('generates an objects with keys and values', function () {
+            assert.deepEqual(requests.$gen_params(['name', 'age'], ['Marcos', 25, 'blah']), {
+                name: 'Marcos',
+                age: 25
+            });
+        });
+    });
 });
