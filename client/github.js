@@ -1,6 +1,9 @@
 'use strict';
 
 var URL_USERS = '/users/${ identifier }/repos',
+    URL_STARRED = '/users/${identifier}/starred',
+    URL_FOLLOWING = '/users/${identifier}/following',
+    URL_FOLLOWERS = '/users/${identifier}/followers',
     URL_COMMIT = '/repos/${ identifier }/${ repo }/commits/${ sha }',
     URL_COMMITS = '/repos/${ identifier }/${ repo }/commits?' +
         'author=${ identifier }&' +
@@ -51,5 +54,29 @@ module.exports = aping('api.github.com', [signature, token], {
      * @param {String} [identifier]
      * @return {Q.Promise}
      */
-    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'identifier'])
+    commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'identifier']),
+
+    /**
+     * @link https://developer.github.com/v3/users/
+     * @method starred
+     * @param {String} [identifier]
+     * @return {Q.Promise}
+     */
+    starred: aping.https(URL_STARRED, ['identifier']),
+
+    /**
+     * @link https://developer.github.com/v3/users/
+     * @method following
+     * @param {String} [identifier]
+     * @return {Q.Promise}
+     */
+    following: aping.https(URL_FOLLOWING, ['identifier']),
+
+    /**
+     * @link https://developer.github.com/v3/users/
+     * @method followers
+     * @param {String} [identifier]
+     * @return {Q.Promise}
+     */
+    followers: aping.https(URL_FOLLOWERS, ['identifier'])
 });

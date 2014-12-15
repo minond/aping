@@ -67,6 +67,9 @@ currently available:
 * [repos](https://developer.github.com/v3/repos/)([identifier])
 * [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [identifier])
 * [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [identifier])
+* [starred](https://developer.github.com/v3/users/)([identifier])
+* [following](https://developer.github.com/v3/users/)([identifier])
+* [followers](https://developer.github.com/v3/users/)([identifier])
 
 ##### [Lastfm](http://www.last.fm/api)
 

@@ -38,4 +38,25 @@ describe('Github', function () {
             .property('sha')
             .equal(sha);
     });
+
+    describe('#starred', function () {
+        it('can get starred repos for the user specified in the constructor', function () {
+            return github.starred().should.eventually.contain.something.with
+                .property('id', 3402537);
+        });
+    });
+
+    describe('#following', function () {
+        it('can get users being followed by the user specified in the constructor', function () {
+            return github.following().should.eventually.contain.something.with
+                .property('id', 2603);
+        });
+    });
+
+    describe('#followers', function () {
+        it('can get users following the user specified in the constructor', function () {
+            return github.followers().should.eventually.contain.something.with
+                .property('id', 2127504);
+        });
+    });
 });
