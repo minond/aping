@@ -1,21 +1,40 @@
 [![Build Status](https://travis-ci.org/minond/aping.svg)](https://travis-ci.org/minond/aping)
 [![Coverage Status](https://coveralls.io/repos/minond/aping/badge.png?branch=master)](https://coveralls.io/r/minond/aping?branch=master)
 
-`aping` - lets you easily create api clients.
+`aping` is a library that helps you create clients for web-based APIs. this is
+my attempt at creating a way to define API clients with a simple set of methods
+for hitting and http endpoint using different types of authentication.
 
 #### usage
 
-just import any available client saved in the `client` directory:
+to get started using `aping`, just `require('aping')` and define your api base:
 
 ```js
-var Github = require('aping/client/github'),
-    github = new Github({ /* config */ });
+var aping = require('aping');
+var Github = aping('api.github.com');
 ```
 
-#### example
+also, the `aping` function returns a "class" which you can instanciate and use
+as the client. the code above will create a blank client which doesn't do
+anything, so let's add some endpoints next:
 
-here's an example of a client for the Github api that lets you download repo
-information for any user:
+```js
+var aping = require('aping');
+var Github = aping('api.github.com', {
+    repos: aping.https('/users/${identifier}/repos', ['identifier'])
+});
+```
+
+now we have a `repos` method that will make an `https` request to
+`api.github.com`. before we can start making requests to github, we have to do
+two more things which they request of their api users: first, we need to get an
+api token and pass it alon in the request. the other thing we will do is to
+tell github who we are by passing our github username in the `User-Agent`
+header.  to help us do this we will use `transformer`s provided by aping.
+transformers are little functions you can use along in your client to help you
+modify the requests you make to meet the requirements set by the api.  we can
+use the `token` transformer to include the token in request and `signature` to
+pass our username in the header:
 
 ```js
 var aping = require('aping'),
@@ -23,11 +42,11 @@ var aping = require('aping'),
     signature = require('aping/transformer/signature');
 
 var Github = aping('api.github.com', [signature, token], {
-    repos: aping.https('/users/${ identifier }/repos', ['identifier'])
+    repos: aping.https('/users/${identifier}/repos', ['identifier'])
 });
 ```
 
-and here's how you would use that client:
+now we are ready to start using this client:
 
 ```js
 var github = new Github({
@@ -48,9 +67,8 @@ github.repos('minond').then(function (repos) {
 
 #### support
 
-I'm also working on adding a few client's and end-points I use and need from
-time to time. these are stored in the `client` directory. this is what's
-currently available:
+I'm working on adding clients and endpoints I use/need from time to time.
+these are stored in the `client` directory. this is what's currently available:
 
 ##### [Fitbit](https://wiki.fitbit.com/display/API/Fitbit+Resource+Access+API)
 
@@ -89,7 +107,7 @@ currently available:
 
 #### installing
 
-haven't published this to npm yet, will do so after I get more tests and the
+haven't published this to npm yet - I will do so after I get more tests and the
 api is finalized. if you do want to install it, however, you can do so using
 the github repo: `npm install minond/aping`
 
