@@ -65,6 +65,16 @@ github.repos('minond').then(function (repos) {
 });
 ```
 
+you may notice I'm passing an object to the `Github` constructor which includes
+`token` and `identifier`. these keys are labeled as such because that's what
+the `token` and `signature` transformers are expecing. if you create a client
+that doesn't rely on transformers you won't have such restrictions. also, on
+one of the calls to the `repos` method I'm not passing a username
+(`identifier`), this is possible because what ever you pass to the constructor
+will become available for use when you make a request, and since we labeled the
+username parameter as identifier, we can default to the one used when we create
+the client, or pass a different one if we'd like.
+
 #### support
 
 I'm working on adding clients and endpoints I use/need from time to time.
