@@ -9,7 +9,7 @@ just import any available client saved in the `client` directory:
 
 ```js
 var Github = require('aping/client/github'),
-    github = new Github({ /* config /* });
+    github = new Github({ /* config */ });
 ```
 
 #### example
