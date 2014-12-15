@@ -3,7 +3,7 @@
 
 `aping` is a library that helps you create clients for web-based APIs. this is
 my attempt at creating a way to define API clients with a simple set of methods
-for hitting and http endpoint using different types of authentication.
+for hitting http endpoints, and using different types of authentication.
 
 #### usage
 
