@@ -10,7 +10,7 @@ dependencies:
 	@git submodule update --init
 
 documentation: install
-	@./scripts/client-documentation client
+	@$(NPM_BIN)/text-documentor client
 
 apitest:
 	@$(NPM_BIN)/mocha --timeout 20000 test/integration/*
