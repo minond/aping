@@ -25,7 +25,8 @@
     "istanbul": "^0.3.2",
     "jscs": "^1.7.3",
     "jshint": "^2.5.10",
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "text-documentor": "git://github.com/minond/text-documentor"
   },
   "dependencies": {
     "debug": "~2.0.0",
