@@ -30,6 +30,7 @@ var reject_unauthorized = reqmod({
  */
 module.exports = aping('rescuetime.com', [reject_unauthorized], {
     /**
+     * get information about the user's productivity levels
      * @link https://www.rescuetime.com/anapi/setup/documentation
      * @method select
      * @param {Date} since

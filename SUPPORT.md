@@ -33,5 +33,5 @@
 
 ##### [RescueTime](https://www.rescuetime.com/anapi/manage)
 
-* [select](https://www.rescuetime.com/anapi/setup/documentation)(since, until, query)
+* [select](https://www.rescuetime.com/anapi/setup/documentation)(since, until, query) - get information about the user&#39;s productivity levels
 
