@@ -12,12 +12,12 @@
 
 ##### [Github](https://developer.github.com/v3/)
 
-* [repos](https://developer.github.com/v3/repos/)([identifier])
-* [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [identifier])
-* [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [identifier])
-* [starred](https://developer.github.com/v3/users/)([identifier])
-* [following](https://developer.github.com/v3/users/)([identifier])
-* [followers](https://developer.github.com/v3/users/)([identifier])
+* [repos](https://developer.github.com/v3/repos/)([identifier]) - list repositories for the user
+* [commit](https://developer.github.com/v3/repos/commits/#get-a-single-commit)(repo, sha, [identifier]) - get a commit
+* [commits](https://developer.github.com/v3/repos/commits/)(repo, [since], [until], [page], [identifier]) - list commits on a repository
+* [starred](https://developer.github.com/v3/users/)([identifier]) - list of repositories starred by a user
+* [following](https://developer.github.com/v3/users/)([identifier]) - list users followed by a user
+* [followers](https://developer.github.com/v3/users/)([identifier]) - list followers of a user
 
 ##### [Lastfm](http://www.last.fm/api)
 

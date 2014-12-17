@@ -27,6 +27,7 @@ var aping = require('../src/aping'),
  */
 module.exports = aping('api.github.com', [signature, token], {
     /**
+     * list repositories for the user
      * @link https://developer.github.com/v3/repos/
      * @method repos
      * @param {String} [identifier]
@@ -35,6 +36,7 @@ module.exports = aping('api.github.com', [signature, token], {
     repos: aping.https(URL_USERS, ['identifier']),
 
     /**
+     * get a commit
      * @link https://developer.github.com/v3/repos/commits/#get-a-single-commit
      * @method commit
      * @param {String} repo
@@ -45,6 +47,7 @@ module.exports = aping('api.github.com', [signature, token], {
     commit: aping.https(URL_COMMIT, ['repo', 'sha', 'identifier']),
 
     /**
+     * list commits on a repository
      * @link https://developer.github.com/v3/repos/commits/
      * @method commits
      * @param {String} repo
@@ -57,6 +60,7 @@ module.exports = aping('api.github.com', [signature, token], {
     commits: aping.https(URL_COMMITS, ['repo', 'since', 'until', 'page', 'identifier']),
 
     /**
+     *  list of repositories starred by a user
      * @link https://developer.github.com/v3/users/
      * @method starred
      * @param {String} [identifier]
@@ -65,6 +69,7 @@ module.exports = aping('api.github.com', [signature, token], {
     starred: aping.https(URL_STARRED, ['identifier']),
 
     /**
+     * list users followed by a user
      * @link https://developer.github.com/v3/users/
      * @method following
      * @param {String} [identifier]
@@ -73,6 +78,7 @@ module.exports = aping('api.github.com', [signature, token], {
     following: aping.https(URL_FOLLOWING, ['identifier']),
 
     /**
+     * list followers of a user
      * @link https://developer.github.com/v3/users/
      * @method followers
      * @param {String} [identifier]
