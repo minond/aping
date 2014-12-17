@@ -21,7 +21,7 @@
 
 ##### [Lastfm](http://www.last.fm/api)
 
-* [getRecentTracks](http://www.last.fm/api/show/user.getRecentTracks)([since], [until], [page])
+* [getRecentTracks](http://www.last.fm/api/show/user.getRecentTracks)([since], [until], [page]) - get a list of the recent tracks listened to by this user
 
 ##### [Meetup](http://www.meetup.com/meetup_api/)
 

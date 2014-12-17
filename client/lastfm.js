@@ -21,6 +21,7 @@ var aping = require('../src/aping');
  */
 module.exports = aping('ws.audioscrobbler.com', {
     /**
+     * get a list of the recent tracks listened to by this user
      * @link http://www.last.fm/api/show/user.getRecentTracks
      * @method getRecentTracks
      * @param {Date} [since]
