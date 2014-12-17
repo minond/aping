@@ -16,8 +16,7 @@ var aping = require('../src/aping');
  */
 module.exports = aping('api.forecast.io', {
     /**
-     * lets one query for a specific time, past or future (for many places, 60
-     * years in the past to 10 years in the future)
+     * lets one query for a specific time, past or future
      * @link https://developer.forecast.io/docs/v2
      * @method forecast
      * @param {float} latitude

@@ -8,7 +8,7 @@
 
 ##### [ForecastIo](https://developer.forecast.io/docs/v2)
 
-* [forecast](https://developer.forecast.io/docs/v2)(latitude, longitude) - lets one query for a specific time, past or future (for many places, 60 years in the past to 10 years in the future)
+* [forecast](https://developer.forecast.io/docs/v2)(latitude, longitude) - lets one query for a specific time, past or future
 
 ##### [Github](https://developer.github.com/v3/)
 
