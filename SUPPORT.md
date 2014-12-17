@@ -29,7 +29,7 @@
 
 ##### [MovesApp](https://dev.moves-app.com/)
 
-* [places](https://dev.moves-app.com/docs/api_places)(from, to)
+* [places](https://dev.moves-app.com/docs/api_places)(from, to) - get location/places information for a user within a given date range
 
 ##### [RescueTime](https://www.rescuetime.com/anapi/manage)
 

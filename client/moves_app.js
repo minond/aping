@@ -27,6 +27,7 @@ var auth = {
  */
 module.exports = aping('api.moves-app.com', [config('auth', auth), refresh('refresh_token')], {
     /**
+     * get location/places information for a user within a given date range
      * @link https://dev.moves-app.com/docs/api_places
      * @method places
      * @param {Date} from
