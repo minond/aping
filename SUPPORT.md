@@ -2,9 +2,9 @@
 
 ##### [Fitbit](https://wiki.fitbit.com/display/API/Fitbit+Resource+Access+API)
 
-* [activities](https://wiki.fitbit.com/display/API/API-Get-Activities)(date)
-* [weight](https://wiki.fitbit.com/display/API/API-Get-Body-Weight)(since, until)
-* [fat](https://wiki.fitbit.com/display/API/API-Get-Body-Fat)(since, until)
+* [activities](https://wiki.fitbit.com/display/API/API-Get-Activities)(date) - get a summary and list of a user&#39;s activities and activity log entries for a given day
+* [weight](https://wiki.fitbit.com/display/API/API-Get-Body-Weight)(since, until) - get a list of all user&#39;s body weight log entries for a given day
+* [fat](https://wiki.fitbit.com/display/API/API-Get-Body-Fat)(since, until) - get a list of all user&#39;s body fat log entries for a given day
 
 ##### [ForecastIo](https://developer.forecast.io/docs/v2)
 

@@ -28,6 +28,8 @@ var auth = {
  */
 module.exports = aping('api.fitbit.com', [config('auth', auth)], {
     /**
+     * get a summary and list of a user's activities and activity log entries
+     * for a given day
      * @link https://wiki.fitbit.com/display/API/API-Get-Activities
      * @method activities
      * @param {Date} date
@@ -36,6 +38,7 @@ module.exports = aping('api.fitbit.com', [config('auth', auth)], {
     activities: aping.oauth(URL_USER_ACTIVITIES, ['date']),
 
     /**
+     * get a list of all user's body weight log entries for a given day
      * @link https://wiki.fitbit.com/display/API/API-Get-Body-Weight
      * @method weight
      * @param {Date} since
@@ -45,6 +48,7 @@ module.exports = aping('api.fitbit.com', [config('auth', auth)], {
     weight: aping.oauth(URL_USER_WEIGHT, ['since', 'until']),
 
     /**
+     * get a list of all user's body fat log entries for a given day
      * @link https://wiki.fitbit.com/display/API/API-Get-Body-Fat
      * @method fat
      * @param {Date} since
