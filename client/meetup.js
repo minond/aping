@@ -17,6 +17,7 @@ var aping = require('../src/aping');
  */
 module.exports = aping('api.meetup.com', [], {
     /**
+     * get Meetup events using a group
      * @link http://www.meetup.com/meetup_api/docs/2/events/
      * @method events
      * @param {String} [group_urlname]

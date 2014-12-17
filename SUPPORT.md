@@ -25,7 +25,7 @@
 
 ##### [Meetup](http://www.meetup.com/meetup_api/)
 
-* [events](http://www.meetup.com/meetup_api/docs/2/events/)([group_urlname], [status])
+* [events](http://www.meetup.com/meetup_api/docs/2/events/)([group_urlname], [status]) - get Meetup events using a group
 
 ##### [MovesApp](https://dev.moves-app.com/)
 
