@@ -1,4 +1,4 @@
--include vendor/minond/scaffold/plugins/js.mk
+-include .scaffold/plugins/js.mk
 
 JS_ISTANBUL_EXTRA_FLAGS = --include-all-sources \
 	-x **/coverage/** -x **/client/**
