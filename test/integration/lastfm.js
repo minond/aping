@@ -17,7 +17,6 @@ describe('Lastfm', function () {
             .property('track')
             .property('0')
             .property('artist')
-            .property('#text')
-            .equal('Aesop Rock');
+            .property('#text');
     });
 });
