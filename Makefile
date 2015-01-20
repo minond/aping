@@ -1,9 +1,9 @@
 -include .scaffold/plugins/js.mk
 
-JS_ISTANBUL_EXTRA_FLAGS = --include-all-sources \
+js_istanbul_extra_flags = --include-all-sources \
 	-x **/coverage/** -x **/client/**
 
-all:: install lint test apitest documentation
+default:: install lint test apitest documentation
 
 test: install js-mocha
 
