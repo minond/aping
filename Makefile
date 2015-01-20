@@ -4,11 +4,8 @@ js_istanbul_extra_flags = --include-all-sources \
 	-x **/coverage/** -x **/client/**
 
 default:: install lint test apitest documentation
-
+install: dependencies npm-install
 test: install js-mocha
-
-install: dependencies
-	@npm install
 
 dependencies:
 	@git submodule update --init
