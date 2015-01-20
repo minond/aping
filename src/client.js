@@ -32,7 +32,7 @@ module.exports = function client(request_base, transformers, endpoints) {
     ApingClient.endpoint = ApingClient.prototype;
 
     forOwn(endpoints, function (handler, label) {
-        ApingClient.endpoint[ label ] = handler;
+        ApingClient.endpoint[label] = handler;
     });
 
     return ApingClient;

@@ -110,7 +110,7 @@ function gen_params(arglist, args) {
     var data = {};
 
     (arglist || []).forEach(function (val, index) {
-        data[ val ] = args[ index ];
+        data[val] = args[index];
     });
 
     return data;
@@ -182,7 +182,7 @@ function http_request(method, url, arglist, proxy) {
             options = gen_options(this, url, params);
 
         this.$log('requesting %s', options.path);
-        proxy[ method ](options, function (res) {
+        proxy[method](options, function (res) {
             var buffers = [];
 
             this.$log('downloading %s', options.path);

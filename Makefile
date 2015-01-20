@@ -16,12 +16,12 @@ dependencies:
 documentation: install
 	@echo "## Clients" > SUPPORT.md
 	@echo "" >> SUPPORT.md
-	@$(NPM_BIN)/text-documentor client >> SUPPORT.md
+	@$(npm_bin)/text-documentor client >> SUPPORT.md
 
 apitest:
-	@$(NPM_BIN)/mocha --timeout 20000 test/integration/*
+	@$(npm_bin)/mocha --timeout 20000 test/integration/*
 
 lint: install
-	$(NPM_BIN)/jscs $(JS_JSCS_FLAGS) $(JS_JSCS_FILES) client transformer
-	$(NPM_BIN)/jshint $(JS_JSHINT_FLAGS) $(JS_JSHINT_FILES) client transformer
-	$(NPM_BIN)/cr $(JS_COMPLEXITY_FLAGS) $(JS_COMPLEXITY_FILES) client transformer
+	$(npm_bin)/jscs $(js_jscs_flags) $(js_jscs_files) client transformer
+	$(npm_bin)/jshint $(js_jshint_flags) $(js_jshint_files) client transformer
+	$(npm_bin)/cr $(js_complexity_flags) $(js_complexity_files) client transformer

@@ -10,7 +10,7 @@ function generate_request_tests_for(Aping, MyApi, type) {
     describe(format('.%s', type), function () {
         describe('#get', function () {
             it(format('create a new %s request method', type), function () {
-                MyApi.prototype.req1 = Aping[ type ].get('req1');
+                MyApi.prototype.req1 = Aping[type].get('req1');
             });
         });
     });

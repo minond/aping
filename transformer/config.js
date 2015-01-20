@@ -8,6 +8,6 @@
  */
 module.exports = function config(namespace, conf) {
     return function config_setter(client) {
-        client[ '$' + namespace ] = conf;
+        client['$' + namespace] = conf;
     };
 };
